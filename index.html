@@ -3308,7 +3308,7 @@
         </span>
         <span class="brand__txt">
           <span class="brand__name">จากผืนป่า สู่ชุมชน</span>
-          <span class="brand__sub">Forest&nbsp;Exhibition&nbsp;2569</span>
+          <span class="brand__sub">Forest&nbsp;community&nbsp;2026</span>
         </span>
       </a>
       <nav class="nav" id="nav" aria-label="เมนูหลัก">
@@ -3562,8 +3562,9 @@
             <rect x="18" y="18" width="964" height="624" rx="26" fill="#0e291c" stroke="rgba(244,239,223,.24)"
               stroke-width="1.6" />
             <rect x="34" y="34" width="932" height="592" rx="18" fill="url(#hatch)" opacity=".5" />
-            <text x="46" y="60" class="zone__sub" style="letter-spacing:.18em">EXHIBITION HALL 1–2 · ชั้น 1
-              อาคารแสดงนิทรรศการป่าไม้ฯ</text>
+            <text x="46" y="60" class="zone__sub" style="letter-spacing:.18em">ณ บริเวณสนามหน้าศาลากลางจังหวัดขอนแก่น
+              อำเภอเมืองขอนแก่น จังหวัดขอนแก่น
+              บูธแสดงนิทรรศการป่าไม้ฯ</text>
 
             <!-- recommended path -->
             <path id="routePath"
@@ -3797,7 +3798,7 @@
             <li><a href="#map">แผนผังและโซนจัดแสดง</a></li>
             <li><a href="#calendar">ปฏิทินการจัดแสดง</a></li>
             <li><a href="#overview">ภาพรวม 4 หัวข้อ</a></li>
-            <li><a href="#press">สื่อสำหรับครูและโรงเรียน</a></li>
+            <li><a href="#press">สื่อประชาสัมพันธ์</a></li>
           </ul>
         </div>
         <div>
@@ -3812,10 +3813,10 @@
         <div>
           <h4>ติดต่อจัดนิทรรศการ</h4>
           <ul>
-            <li>งานเทศกาลไหมนานาชาติ ประเพณีผูกเสี่ยว และงานกาชาดจังหวัดขอนแก่น ประจำปี 2569</li>
+            <li>ส่วนส่งเสริมการปลูกป่า สำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)</li>
             <li>โทร. 043 330 381 ต่อ 0 (จันทร์–ศุกร์)</li>
-            <li><a href="mailto:exhibition@forest-value.or.th">exhibition@forest-value.or.th</a></li>
-            <li>จองเข้าชมเป็นหมู่คณะล่วงหน้าอย่างน้อย 5 วัน</li>
+            <li><a href="mailto:khonkaensp@forest.go.th">khonkaensp@forest.go.th</a></li>
+            <li>เข้าชมนิทรรศการฟรี 12 วัน</li>
           </ul>
           <button class="adminbtn" id="adminOpen" style="margin-top:16px">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -3855,8 +3856,7 @@
             <button class="btn" id="loginBtn">เข้าระบบ</button>
             <span id="loginMsg" style="font-size:13px;color:var(--clay)"></span>
           </div>
-          <div class="note">เมื่อเชื่อมกับ Google Apps Script แล้ว สื่อที่อัปโหลดจะถูกเก็บใน Google Drive
-            และบันทึกรายการลง Google Sheets โดยอัตโนมัติ เว็บไซต์จะแสดงข้อมูลใหม่ทันทีโดยไม่ต้องแก้โค้ด HTML</div>
+          <div class="note">Google Apps Script</div>
         </div>
       </div>
 
@@ -4160,9 +4160,9 @@
         title: 'จากผืนป่า สู่ชุมชน สร้างมูลค่าที่ยั่งยืน',
         en: 'From the Forest to the Community — Sustainable Value Creation',
         dates: 'วันที่ 29 พฤศจิกายน – 10 ธันวาคม 2569', time: '08.30–16.30 น.',
-        venue: 'งานเทศกาลไหมนานาชาติ ประเพณีผูกเสี่ยว และงานกาชาดจังหวัดขอนแก่น ประจำปี 2569',
+        venue: 'ณ บริเวณสนามหน้าศาลากลางจังหวัดขอนแก่น อำเภอเมืองขอนแก่น จังหวัดขอนแก่น',
         lead: 'เส้นทางเรื่องเล่า 4 หัวข้อ จากเมล็ดพันธุ์ต้นทางของผืนป่า สู่งานวิจัยการฟื้นฟูป่า ภูมิปัญญาการกินอยู่กับป่า และผลิตภัณฑ์ชุมชนที่สร้างรายได้จริง',
-        hero: '', tel: '043 330 380 ต่อ 0', mail: '@forest-value.or.th',
+        hero: '', tel: '043 330 381 ต่อ 0', mail: 'khonkaensp@forest.go.th',
         map: 'https://maps.app.goo.gl/8SFkwniNxGLcieaa9'
       },
       stats: [
@@ -4395,7 +4395,7 @@
     /* ============================================================
        STATE · HELPERS · API LAYER
        ============================================================ */
-    const RANGE = { start: '2026-11-18', end: '2026-11-27' };   // ช่วงวันจัดแสดงจริง (แก้ไขใน Settings ได้)
+    const RANGE = { start: '2026-11-29', end: '2026-12-10' };   // ช่วงวันจัดแสดงจริง (แก้ไขใน Settings ได้)
     const TH_MONTH = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
     const TH_MONTH_S = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
     const TH_DOW = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
@@ -4450,7 +4450,7 @@
     let DATA = JSON.parse(JSON.stringify(DEMO));
     let STATE = { backend: false, token: '', cal: { y: 2026, m: 10, sel: iso(new Date()) }, video: 0, filter: 'all', zone: 't1' };
 
-    const LS_KEY = 'forestExhibit.data.v1';
+    const LS_KEY = 'forestExhibit.data.v2';
     function loadLocal() {
       try {
         const raw = localStorage.getItem(LS_KEY);
@@ -4528,11 +4528,12 @@
           const previous = DATA;
           const incoming = j.data || {};
           DATA = Object.assign(JSON.parse(JSON.stringify(DEMO)), incoming);
-          // ทำความสะอาด settings: ถ้าค่าที่มาจากชีตเป็นสตริงว่าง ไม่ให้ทับค่า default
+          // กรอง settings ไม่ให้ค่าว่าง หรือค่า placeholder เดิม (บางเขน / 18–27 พ.ย.) มาทับค่าปัจจุบัน
           const cleanSettings = {};
+          const isOldPlaceholder = v => typeof v === 'string' && (v.includes('18–27 พ.ย.') || v.includes('บางเขน') || v.includes('0 2561 4250'));
           Object.keys(incoming.settings || {}).forEach(k => {
             const v = incoming.settings[k];
-            if (v !== '' && v !== null && v !== undefined) cleanSettings[k] = v;
+            if (v !== '' && v !== null && v !== undefined && !isOldPlaceholder(v)) cleanSettings[k] = v;
           });
           DATA.settings = Object.assign({}, DEMO.settings, previous.settings || {}, cleanSettings);
           // setupOnce สร้างหัวตารางก่อนมีข้อมูลจริง: คงตัวอย่าง/ข้อมูล local ที่แสดงอยู่ไว้
@@ -4577,13 +4578,16 @@
     function renderSettings() {
       const s = DATA.settings;
       document.title = s.title + ' | นิทรรศการป่าไม้เพื่อชุมชน';
-      $('#chipDate').textContent = '◷ ' + s.dates + ' · ' + s.time;
-      $('#chipVenue').textContent = '◈ ' + s.venue;
+      if (s.dates) {
+        const timeStr = s.time && !s.dates.includes(s.time) ? ' · ' + s.time : '';
+        $('#chipDate').textContent = '◷ ' + s.dates + timeStr;
+      }
+      if (s.venue) $('#chipVenue').textContent = '◈ ' + s.venue;
       $('#heroImg').src = asset(s.hero || 'hero-forest.jpg');
       $('#heroDesc').textContent = s.lead;
-      const mail = $('.foot a[href^="mailto"]'); if (mail) { mail.textContent = s.mail; mail.href = 'mailto:' + s.mail; }
-      const tels = $$('.foot ul li'); if (tels[1]) tels[1].textContent = 'โทร. ' + s.tel + ' (จันทร์–ศุกร์)';
-      if (tels[0]) tels[0].textContent = s.venue;
+      const mail = $('.foot a[href^="mailto"]'); if (mail && s.mail) { mail.textContent = s.mail; mail.href = 'mailto:' + s.mail; }
+      const tels = $$('.foot ul li'); if (tels[1] && s.tel) tels[1].textContent = 'โทร. ' + s.tel + ' (จันทร์–ศุกร์)';
+      if (tels[0] && s.venue) tels[0].textContent = s.venue;
       $('#lastUpdate').textContent = thDate(iso(new Date()));
       $('#year').textContent = be(new Date().getFullYear());
     }
