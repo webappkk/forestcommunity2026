@@ -2693,6 +2693,7 @@
       display: grid;
       place-items: center;
       padding: 20px;
+      overflow-y: auto;
       background: rgba(7, 18, 12, .76);
       backdrop-filter: blur(10px);
       opacity: 0;
@@ -2707,7 +2708,10 @@
 
     .modal__box {
       width: min(1080px, 96vw);
+      height: min(92vh, 900px);
       max-height: 92vh;
+      max-height: 92dvh;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       background: var(--paper);
@@ -2725,6 +2729,7 @@
 
     .modal__head {
       display: flex;
+      flex: 0 0 auto;
       align-items: center;
       gap: 14px;
       padding: 16px clamp(16px, 2vw, 24px);
@@ -2777,7 +2782,63 @@
 
     .modal__body {
       padding: clamp(16px, 2vw, 26px);
-      overflow: auto
+      overflow: auto;
+      overscroll-behavior: contain
+    }
+
+    #editorPane {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden
+    }
+
+    #editorPane[hidden] {
+      display: none !important
+    }
+
+    #loginPane {
+      margin-block: auto
+    }
+
+    #editorPane .tabs {
+      flex: 0 0 auto
+    }
+
+    #editorPane .modal__body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto
+    }
+
+    .tabpane > .bar {
+      position: sticky;
+      bottom: 0;
+      z-index: 5;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(244, 239, 226, .9), var(--paper) 28%);
+      box-shadow: 0 -8px 18px -18px rgba(9, 26, 18, .42)
+    }
+
+    label.map-clear {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 10px;
+      color: var(--clay);
+      font-size: 13px
+    }
+
+    label.map-clear input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      accent-color: var(--clay)
     }
 
     .form {
@@ -3039,11 +3100,18 @@
       font-size: 12px
     }
 
-    .row .edit { color: var(--moss) }
-    .row .publish { color: var(--forest) }
+    .row .edit {
+      color: var(--moss)
+    }
+
+    .row .publish {
+      color: var(--forest)
+    }
 
     .row .edit:hover,
-    .row .publish:hover { background: var(--paper-2) }
+    .row .publish:hover {
+      background: var(--paper-2)
+    }
 
     .bar {
       display: flex;
@@ -3278,11 +3346,32 @@
 
     @media (max-width:560px) {
 
+      .modal {
+        padding: 6px
+      }
+
+      .modal__box {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        max-height: 100dvh;
+        border-radius: 14px
+      }
+
+      .modal__head {
+        flex-wrap: wrap;
+        gap: 8px
+      }
+
+      .modal__head h3 {
+        font-size: 17px
+      }
+
       .row--media {
         grid-template-columns: 44px minmax(0, 1fr)
       }
 
-      .row--media > :nth-child(n+3) {
+      .row--media> :nth-child(n+3) {
         grid-column: 2
       }
 
@@ -3406,7 +3495,8 @@
       <h1 class="mask-host" id="heroTitle">
         <span class="mask"><span>จาก<span style="white-space:nowrap"> ผืนป่า </span>สู่ชุมชน</span></span>
         <span class="mask"><span><em>สร้างมูลค่า</em>ที่ยั่งยืน</span></span>
-        <span class="l2 mask"><span id="heroEn">From the Forest to the Community — Sustainable Value Creation</span></span>
+        <span class="l2 mask"><span id="heroEn">From the Forest to the Community — Sustainable Value
+            Creation</span></span>
       </h1>
       <p class="hero__desc reveal" id="heroDesc">เส้นทางเรื่องเล่า 4 หัวข้อ จากเมล็ดพันธุ์ต้นทางของผืนป่า
         สู่งานวิจัยการฟื้นฟูป่า ภูมิปัญญาการกินอยู่กับป่า
@@ -3519,9 +3609,8 @@
       </div>
       <div class="note reveal"
         style="color:rgba(233,229,214,.75);background:rgba(243,238,222,.07);border-left-color:var(--brass);margin-top:22px">
-        ระบบรองรับทั้งลิงก์ YouTube ลิงก์ Google Drive และไฟล์วีดีโอที่อัปโหลดผ่าน <b
-          style="color:var(--brass-light)">แผงจัดการสื่อ</b> (ปุ่มมุมขวาล่าง)
-        ไฟล์จะถูกเก็บใน Google Drive และแสดงบนหน้านี้ทันที
+        <b style="color:var(--brass-light)"></b>
+
       </div>
     </div>
   </section>
@@ -3889,7 +3978,9 @@
       <div class="modal__head">
         <h3>แผงจัดการสื่อประชาสัมพันธ์</h3>
         <span class="chip" id="apiState" style="font-size:11.5px">โหมดสาธิต · ข้อมูลตัวอย่าง</span>
-        <button class="btn btn--ghost btn--sm" id="refreshDataBtn" type="button" style="font-size:11.5px;padding:5px 10px" title="โหลดข้อมูลล่าสุดจาก Google Sheets">↻ โหลดข้อมูลล่าสุด</button>
+        <button class="btn btn--ghost btn--sm" id="refreshDataBtn" type="button"
+          style="font-size:11.5px;padding:5px 10px" title="โหลดข้อมูลล่าสุดจาก Google Sheets">↻
+          โหลดข้อมูลล่าสุด</button>
         <button id="adminClose" aria-label="ปิดแผง">×</button>
       </div>
 
@@ -3957,7 +4048,8 @@
                   style="font-family:var(--t3);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--moss)">หรือเลือกไฟล์จากเครื่อง</span>
                 <div class="drop" id="m_drop" tabindex="0">
                   <b>ลากไฟล์มาวาง หรือคลิกเพื่อเลือก</b>
-                  <span id="m_fileInfo">รองรับภาพ วีดีโอ เสียง เอกสาร และไฟล์ทั่วไป · ไม่เกิน 20MB ต่อไฟล์ (ไฟล์ใหญ่ใช้ลิงก์ Drive)
+                  <span id="m_fileInfo">รองรับภาพ วีดีโอ เสียง เอกสาร และไฟล์ทั่วไป · ไม่เกิน 20MB ต่อไฟล์
+                    (ไฟล์ใหญ่ใช้ลิงก์ Drive)
                     (ไฟล์ใหญ่กว่านั้นให้วางลิงก์ Drive)</span>
                   <input type="file" id="m_file" hidden
                     accept="image/*,video/*,audio/*,application/pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip">
@@ -4167,6 +4259,8 @@
             <div class="form" style="margin-top:16px">
               <label class="fld full"><span>ลิงก์ภาพผังงาน (ไม่บังคับ)</span><input id="p_map"
                   placeholder="เช่น https://… หรือ assets/plan-map.png หรืออัปโหลดไฟล์ด้านล่างเพื่อแสดงทับผังแบบคลิกโซน"></label>
+              <label class="map-clear fld full"><input type="checkbox" id="p_map_clear">
+                ลบภาพผังที่อัปโหลด แล้วกลับไปใช้ผังแบบคลิกโซน</label>
               <div class="fld full">
                 <div class="drop" id="p_drop" tabindex="0">
                   <b>อัปโหลดภาพผังการจัดแสดง</b><span id="p_fileInfo"> PNG / JPG · ไม่เกิน 10MB · วางทับผัง SVG
@@ -4530,7 +4624,7 @@
       <label class="fld"><span>ชื่อภาษาอังกฤษ</span><input id="tp_${t.id}_en" value="${esc(t.en || '')}"></label>
       <label class="fld"><span>เลขข้อ / โซน</span><input id="tp_${t.id}_no" value="${esc((t.no || '') + ' / ' + (t.zone || ''))}" placeholder="01 / A"></label>
       <label class="fld"><span>ภาพประกอบ (ลิงก์หรือชื่อไฟล์)</span><input id="tp_${t.id}_img" value="${esc(t.img || '')}"></label>
-      <label class="fld"><span>หรือเลือกไฟล์ภาพจากเครื่อง</span><input type="file" id="tp_${t.id}_file" accept="image/*" style="font-size:12.5px;padding-top:7px"></label>
+      <label class="fld"><span>หรือเลือกไฟล์ภาพจากเครื่อง · ไม่เกิน 10MB</span><input type="file" id="tp_${t.id}_file" accept="image/*" style="font-size:12.5px;padding-top:7px"></label>
       <label class="fld full"><span>คำโปรยภาพรวมหัวข้อ</span><textarea id="tp_${t.id}_lead">${esc(t.lead || '')}</textarea></label>
       <label class="fld full"><span>จุดเน้นของโซน (บรรทัดละ 1 ข้อ)</span><textarea id="tp_${t.id}_points" rows="4">${esc((t.points || []).join('\n'))}</textarea></label>
       <label class="fld full"><span>ตัวเลขเด่น (ค่า|คำกำกับ คั่นด้วย ;)</span><input id="tp_${t.id}_stats" value="${esc((t.stats || []).map(x => x.v + '|' + x.l).join(' ; '))}"></label>
@@ -4538,6 +4632,7 @@
     <div class="thumbrow"><img src="${asset(t.img)}" alt=""><small>ภาพปัจจุบันของหัวข้อย่อยนี้ · เปลี่ยนได้ทั้งใส่ลิงก์และเลือกไฟล์</small></div>
   </div>`).join('');
       const pm = $('#p_map'); if (pm) pm.value = (DATA.settings && DATA.settings.mapimg) || '';
+      const clearMap = $('#p_map_clear'); if (clearMap) clearMap.checked = false;
     }
     function saveLocal() {
       try { localStorage.setItem(LS_KEY, JSON.stringify(DATA)); } catch (e) { }
@@ -4971,8 +5066,17 @@
     function renderPlan() {
       const fig = $('#planImg'), src = $('#planImgSrc'), svg = $('#map .plan svg');
       const uploaded = (DATA.settings && DATA.settings.mapimg) || '';
-      if (fig) { fig.hidden = !uploaded; if (uploaded) src.src = asset(uploaded); }
-      if (svg) svg.style.display = uploaded ? 'none' : '';
+      if (fig && src) {
+        fig.hidden = !uploaded;
+        if (uploaded) {
+          src.onload = () => { fig.hidden = false; if (svg) svg.style.display = 'none'; };
+          src.onerror = () => { fig.hidden = true; if (svg) svg.style.display = ''; };
+          src.src = asset(uploaded);
+        } else {
+          src.removeAttribute('src');
+        }
+      }
+      if (svg && !uploaded) svg.style.display = '';
       $('#zoneLegend').innerHTML = Object.entries(ZONES).map(([k, z]) =>
         `<button data-zone="${k}" class="${k === STATE.zone ? 'is-on' : ''}"><i style="background:${z.hex}"></i>${esc(z.name)}</button>`).join('');
       renderZone();
@@ -5170,7 +5274,10 @@
         const tab = e.target.closest('.tabs button');
         if (tab) {
           $$('.tabs button').forEach(b => b.classList.toggle('is-on', b === tab));
-          $$('.tabpane').forEach(p => p.hidden = p.dataset.pane !== tab.dataset.tab); return;
+          $$('.tabpane').forEach(p => p.hidden = p.dataset.pane !== tab.dataset.tab);
+          const editorBody = $('#editorPane .modal__body');
+          if (editorBody) editorBody.scrollTop = 0;
+          return;
         }
 
         const publish = e.target.closest('[data-publish]');
@@ -5286,7 +5393,6 @@
         $('#m_topic').value = 'all';
         $('#m_fileInfo').textContent = 'รองรับภาพ วีดีโอ เสียง เอกสาร และไฟล์ทั่วไป · ไม่เกิน 20MB ต่อไฟล์ (ไฟล์ใหญ่ใช้ลิงก์ Drive)';
         $('#m_prog').textContent = '';
-        STATE.mediaEditing = '';
         $('[data-save="media"]').textContent = 'บันทึกร่าง';
         $('[data-publish="media"]').textContent = 'บันทึกและเผยแพร่';
       } else if (map[coll]) {
@@ -5394,7 +5500,7 @@
       const f = $('#m_file');
       const v = formVals('m', ['type', 'topic', 'title', 'desc', 'url', 'dur', 'credit', 'date']);
       if (!v.title.trim()) return toast('กรอกชื่อเรื่องก่อน', true);
-      const current = DATA.videos.find(item => item.id === STATE.mediaEditing);
+      const current = DATA.videos.find(item => item.id === STATE.editing.media);
       let url = v.url.trim();
       let thumb = current && current.thumb || '';
       let mimeHint = current && current.mimeHint || '';
@@ -5456,13 +5562,16 @@
       toast(result.warning
         ? 'บันทึกสื่อแล้ว แต่ลบไฟล์เดิมจาก Drive ไม่สำเร็จ: ' + result.warning
         : result.local
-        ? (publish ? 'บันทึกในเครื่องแล้ว · ยังไม่เผยแพร่บนเว็บไซต์สาธารณะ' : 'บันทึกร่างไว้ในเครื่องนี้แล้ว')
-        : (publish ? 'บันทึกและเผยแพร่สื่อแล้ว' : 'บันทึกร่างสื่อแล้ว'));
+          ? (publish ? 'บันทึกในเครื่องแล้ว · ยังไม่เผยแพร่บนเว็บไซต์สาธารณะ' : 'บันทึกร่างไว้ในเครื่องนี้แล้ว')
+          : (publish ? 'บันทึกและเผยแพร่สื่อแล้ว' : 'บันทึกร่างสื่อแล้ว'));
     }
 
     async function saveEntity(coll, publish) {
       if (coll === 'media') return saveMedia(!!publish);
       let item = null;
+      const isTopicsUpdate = coll === 'topics';
+      let updatedTopics = null;
+      let updatedMapimg = '';
       const editId = STATE.editing[coll] || '';
       const upsert = (arr, it, toEnd) => {
         const idx = editId ? arr.findIndex(x => x.id === editId) : -1;
@@ -5535,22 +5644,49 @@
             img: g('img') || t.img
           });
           const fe = $('#tp_' + t.id + '_file');
-          if (fe && fe.files[0]) { const up = await uploadOne(fe.files[0]); if (up) nt.img = up; fe.value = ''; }
+          if (fe && fe.files[0]) {
+            const up = await uploadOne(fe.files[0]);
+            if (!up) return;
+            nt.img = up;
+            $('#tp_' + t.id + '_img').value = up;
+            fe.value = '';
+          }
           next.push(nt);
         }
         if (!next.length) return toast('ไม่พบข้อมูลหัวข้อให้บันทึก', true);
-        DATA.topics = next;
-        let mapimg = ($('#p_map') || {}).value ? String($('#p_map').value).trim() : ((DATA.settings || {}).mapimg || '');
+        const mapLink = String(($('#p_map') || {}).value || '').trim();
+        const clearMapimg = !!($('#p_map_clear') && $('#p_map_clear').checked);
+        let mapimg = clearMapimg ? '' : (mapLink || ((DATA.settings || {}).mapimg || ''));
         const pf = $('#p_file');
-        if (pf && pf.files[0]) { const up = await uploadOne(pf.files[0]); if (up) mapimg = up; pf.value = ''; }
-        DATA.settings = Object.assign({}, DATA.settings, { mapimg });
+        if (pf && pf.files[0]) {
+          const up = await uploadOne(pf.files[0]);
+          if (!up) return;
+          mapimg = up;
+          $('#p_map').value = up;
+          pf.value = '';
+        }
+        updatedTopics = next;
+        updatedMapimg = mapimg;
         $('#p_prog').textContent = mapimg ? 'ใช้ภาพผังที่อัปโหลดทับผังแบบคลิกโซน' : 'แสดงผังแบบคลิกโซน (SVG)';
         /* ส่ง both mapimg และ topics (encode เป็น JSON string) ไปเก็บในชีต Settings */
-        item = Object.assign({}, DATA.settings, { topics: JSON.stringify(DATA.topics) });
+        item = Object.assign({}, DATA.settings, { mapimg, topics: JSON.stringify(next) });
         coll = 'settings';
       }
       if (!item) return;
-      const j = await api('save', { collection: coll, item });
+      let j;
+      try { j = await api('save', { collection: coll, item }); }
+      catch (err) {
+        toast('บันทึกไม่สำเร็จ: ' + err.message, true);
+        return;
+      }
+      if (isTopicsUpdate) {
+        if (!j || (!j.ok && !j.local)) {
+          toast('บันทึกหัวข้อและผังไม่สำเร็จ: ' + ((j && j.error) || 'ไม่ทราบสาเหตุ'), true);
+          return;
+        }
+        DATA.topics = updatedTopics;
+        DATA.settings = Object.assign({}, DATA.settings, { mapimg: updatedMapimg });
+      }
       saveLocal();
       if (j && j.ok) toast(editId ? 'อัปเดตลง Google Sheets แล้ว' : 'บันทึกลง Google Sheets แล้ว');
       else if (j && j.local) toast('บันทึกในโหมดสาธิต (localStorage)');
@@ -5562,15 +5698,41 @@
       if (coll !== 'settings') clearForm(coll);
     }
     async function uploadOne(file) {
-      const dataUrl = await new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(file); });
-      if (!STATE.backend || !STATE.token) return file.type.startsWith('image/') ? dataUrl : null;
-      const j = await api('upload', { file: { name: file.name, mime: file.type, data: String(dataUrl).split(',')[1] } });
-      return j && j.ok ? j.url : null;
+      if (file.size > 10 * 1024 * 1024) {
+        toast('รูปภาพต้องมีขนาดไม่เกิน 10MB ต่อไฟล์', true);
+        return null;
+      }
+      const isImage = file.type.startsWith('image/') || /\.(png|jpe?g|gif|webp|avif)$/i.test(file.name);
+      let dataUrl;
+      try {
+        dataUrl = await new Promise((res, rej) => {
+          const reader = new FileReader();
+          reader.onload = () => res(reader.result);
+          reader.onerror = () => rej(new Error('อ่านไฟล์ภาพไม่สำเร็จ'));
+          reader.readAsDataURL(file);
+        });
+      } catch (err) {
+        toast(err.message, true);
+        return null;
+      }
+      if (!STATE.backend || !STATE.token) {
+        if (isImage && file.size <= 2 * 1024 * 1024) return dataUrl;
+        toast(isImage ? 'โหมดในเครื่องรองรับรูปไม่เกิน 2MB · เข้าสู่ระบบเพื่ออัปโหลดลง Drive' : 'ไฟล์นี้ต้องเชื่อมต่อ Apps Script และเข้าสู่ระบบก่อน', true);
+        return null;
+      }
+      try {
+        const j = await api('upload', { file: { name: file.name, mime: file.type, data: String(dataUrl).split(',')[1] } });
+        if (j && j.ok && j.url) return j.url;
+        toast('อัปโหลดภาพไม่สำเร็จ: ' + ((j && j.error) || 'เซิร์ฟเวอร์ไม่ส่งลิงก์กลับมา'), true);
+      } catch (err) {
+        toast('อัปโหลดภาพไม่สำเร็จ: ' + err.message, true);
+      }
+      return null;
     }
     function editMedia(id) {
       const item = DATA.videos.find(entry => entry.id === id);
       if (!item) return;
-      STATE.mediaEditing = id;
+      STATE.editing.media = id;
       $('#m_type').value = item.kind === 'image' ? 'image' : item.kind === 'file' ? 'file' : item.kind === 'audio' ? 'audio' : 'video';
       $('#m_topic').value = item.topic || 'all';
       $('#m_title').value = item.title || '';
@@ -5661,12 +5823,13 @@
       $('#adminOpen').addEventListener('click', openAdmin);
       $('#adminClose').addEventListener('click', () => $('#adminModal').classList.remove('open'));
       const rf = $('#refreshDataBtn');
-      if (rf) rf.addEventListener('click', () => {
+      if (rf) rf.addEventListener('click', async () => {
+        if (STATE.token) return loadAdminData();
         toast('กำลังโหลดข้อมูลล่าสุดจาก Google Sheets…');
-        pingBackend().then(ok => toast(ok ? 'อัปเดตข้อมูลล่าสุดจาก Google Sheets แล้ว' : 'ยังไม่ได้เชื่อมต่อ Apps Script', !ok));
+        const ok = await pingBackend();
+        toast(ok ? 'อัปเดตข้อมูลล่าสุดจาก Google Sheets แล้ว' : 'ยังไม่ได้เชื่อมต่อ Apps Script', !ok);
       });
       $('#adminModal').addEventListener('click', e => { if (e.target === $('#adminModal')) $('#adminModal').classList.remove('open'); });
-      $('#refreshDataBtn').addEventListener('click', loadAdminData);
       $('#loginBtn').addEventListener('click', doLogin);
       $('#passInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
       ['m', 'w', 'a', 'p'].forEach(p => {
