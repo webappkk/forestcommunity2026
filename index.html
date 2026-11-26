@@ -2987,15 +2987,35 @@
       color: var(--moss)
     }
 
+    .row__acts {
+      display: flex;
+      gap: 6px;
+      align-items: center
+    }
+
+    .row .edit,
     .row .del {
       background: transparent;
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 6px 10px;
       cursor: pointer;
-      color: var(--clay);
       font-family: var(--t3);
       font-size: 12px
+    }
+
+    .row .edit {
+      color: var(--moss)
+    }
+
+    .row .edit:hover {
+      background: var(--moss);
+      color: #fff;
+      border-color: var(--moss)
+    }
+
+    .row .del {
+      color: var(--clay)
     }
 
     .row .del:hover {
@@ -3003,6 +3023,27 @@
       color: #fff;
       border-color: var(--clay)
     }
+
+    .row--media {
+      grid-template-columns: 52px minmax(0, 1fr) auto auto auto auto
+    }
+
+    .row .edit,
+    .row .publish {
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-family: var(--t3);
+      font-size: 12px
+    }
+
+    .row .edit { color: var(--moss) }
+    .row .publish { color: var(--forest) }
+
+    .row .edit:hover,
+    .row .publish:hover { background: var(--paper-2) }
 
     .bar {
       display: flex;
@@ -3237,6 +3278,14 @@
 
     @media (max-width:560px) {
 
+      .row--media {
+        grid-template-columns: 44px minmax(0, 1fr)
+      }
+
+      .row--media > :nth-child(n+3) {
+        grid-column: 2
+      }
+
       .grid-works,
       .awards {
         grid-template-columns: 1fr
@@ -3354,10 +3403,10 @@
     <span class="scrollcue" aria-hidden="true">เลื่อนเพื่อชม</span>
     <div class="hero__body wrap wide">
       <p class="eyebrow" style="color:var(--brass-light)"><span>นิทรรศการหมุนเวียน · พ.ศ. ๒๕๖๙</span></p>
-      <h1 class="mask-host">
+      <h1 class="mask-host" id="heroTitle">
         <span class="mask"><span>จาก<span style="white-space:nowrap"> ผืนป่า </span>สู่ชุมชน</span></span>
         <span class="mask"><span><em>สร้างมูลค่า</em>ที่ยั่งยืน</span></span>
-        <span class="l2 mask"><span>From the Forest to the Community — Sustainable Value Creation</span></span>
+        <span class="l2 mask"><span id="heroEn">From the Forest to the Community — Sustainable Value Creation</span></span>
       </h1>
       <p class="hero__desc reveal" id="heroDesc">เส้นทางเรื่องเล่า 4 หัวข้อ จากเมล็ดพันธุ์ต้นทางของผืนป่า
         สู่งานวิจัยการฟื้นฟูป่า ภูมิปัญญาการกินอยู่กับป่า
@@ -3655,8 +3704,8 @@
               <rect class="zone__rect" x="330" y="540" width="300" height="80" rx="14" fill="#153a29" stroke="#e0c473"
                 stroke-width="1.6" opacity="1" />
               <text class="zone__label" x="352" y="572" fill="#e0c473">ทางเข้า · จุดลงทะเบียนรับแผ่นนำชม</text>
-              <text class="zone__sub" x="352" y="592">เปิดให้เข้าชม 09.00–18.00 น. ·
-                เยี่ยมชมเป็นหมู่คณะจองล่วงหน้า</text>
+              <text class="zone__sub" x="352" y="592">เปิดให้เข้าชม 08.30–16.30 น. ·
+                สำหรับประชาชนทั่วไปและนักเรียนนักศึกษา</text>
             </g>
             <g class="zone" data-zone="service" tabindex="0" role="button" aria-label="จุดบริการ">
               <rect class="zone__rect" x="60" y="540" width="250" height="80" rx="14" fill="#1b3527"
@@ -3813,7 +3862,7 @@
         <div>
           <h4>ติดต่อจัดนิทรรศการ</h4>
           <ul>
-            <li>ส่วนส่งเสริมการปลูกป่า สำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)</li>
+            <li>ส่วนส่งเสริมการปลูกป่า<br>สำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น)</li>
             <li>โทร. 043 330 381 ต่อ 0 (จันทร์–ศุกร์)</li>
             <li><a href="mailto:khonkaensp@forest.go.th">khonkaensp@forest.go.th</a></li>
             <li>เข้าชมนิทรรศการฟรี 12 วัน</li>
@@ -3840,6 +3889,7 @@
       <div class="modal__head">
         <h3>แผงจัดการสื่อประชาสัมพันธ์</h3>
         <span class="chip" id="apiState" style="font-size:11.5px">โหมดสาธิต · ข้อมูลตัวอย่าง</span>
+        <button class="btn btn--ghost btn--sm" id="refreshDataBtn" type="button" style="font-size:11.5px;padding:5px 10px" title="โหลดข้อมูลล่าสุดจาก Google Sheets">↻ โหลดข้อมูลล่าสุด</button>
         <button id="adminClose" aria-label="ปิดแผง">×</button>
       </div>
 
@@ -3878,6 +3928,7 @@
                 <select id="m_type">
                   <option value="video">วีดีโอ (YouTube / Drive / ไฟล์)</option>
                   <option value="image">ภาพประชาสัมพันธ์ / ภาพกิจกรรม</option>
+                  <option value="audio">ไฟล์เสียง</option>
                   <option value="file">ไฟล์เอกสารดาวน์โหลด</option>
                 </select>
               </label>
@@ -3906,14 +3957,16 @@
                   style="font-family:var(--t3);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--moss)">หรือเลือกไฟล์จากเครื่อง</span>
                 <div class="drop" id="m_drop" tabindex="0">
                   <b>ลากไฟล์มาวาง หรือคลิกเพื่อเลือก</b>
-                  <span id="m_fileInfo">รองรับ JPG / PNG / PDF / MP4 · แนะนำไม่เกิน 20MB ต่อไฟล์
+                  <span id="m_fileInfo">รองรับภาพ วีดีโอ เสียง เอกสาร และไฟล์ทั่วไป · ไม่เกิน 20MB ต่อไฟล์ (ไฟล์ใหญ่ใช้ลิงก์ Drive)
                     (ไฟล์ใหญ่กว่านั้นให้วางลิงก์ Drive)</span>
-                  <input type="file" id="m_file" hidden>
+                  <input type="file" id="m_file" hidden
+                    accept="image/*,video/*,audio/*,application/pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip">
                 </div>
               </div>
             </div>
             <div class="bar">
-              <button class="btn" data-save="media">บันทึกสื่อ</button>
+              <button class="btn" data-save="media">บันทึกร่าง</button>
+              <button class="btn btn--brass" data-publish="media">บันทึกและเผยแพร่</button>
               <button class="btn btn--ghost" data-clear="media">ล้างฟอร์ม</button>
               <span id="m_prog" style="font-size:12.5px;color:var(--moss);font-family:var(--t3)"></span>
             </div>
@@ -4083,6 +4136,8 @@
               <label class="fld"><span>ระยะเวลาจัดแสดง</span><input id="s_dates"
                   placeholder="วันที่ 29 พฤศจิกายน – 10 ธันวาคม 2569"></label>
               <label class="fld"><span>เวลาเปิด–ปิด</span><input id="s_time" placeholder="08.30–16.30 น."></label>
+              <label class="fld"><span>วันเริ่มงาน (ปฏิทิน)</span><input id="s_exhStart" type="date"></label>
+              <label class="fld"><span>วันสิ้นสุดงาน (ปฏิทิน)</span><input id="s_exhEnd" type="date"></label>
               <label class="fld full"><span>สถานที่</span><input id="s_venue"></label>
               <label class="fld full"><span>ข้อความโปรยหน้าแรก</span><textarea id="s_lead"></textarea></label>
               <label class="fld"><span>ภาพพื้นหลังหน้าแรก (ลิงก์)</span><input id="s_hero"
@@ -4448,7 +4503,7 @@
 
     /* ข้อมูลที่ใช้จริง = DEMO ∪ สิ่งที่เก็บไว้ (backend หรือ localStorage) */
     let DATA = JSON.parse(JSON.stringify(DEMO));
-    let STATE = { backend: false, token: '', cal: { y: 2026, m: 10, sel: iso(new Date()) }, video: 0, filter: 'all', zone: 't1' };
+    let STATE = { backend: false, token: '', editing: {}, cal: { y: 2026, m: 10, sel: iso(new Date()) }, video: 0, filter: 'all', zone: 't1' };
 
     const LS_KEY = 'forestExhibit.data.v2';
     function loadLocal() {
@@ -4521,8 +4576,8 @@
       }).then(r => r.json()).catch(err => ({ ok: false, error: String(err) }));
     }
     function pingBackend() {
-      if (!CONFIG.BACKEND_URL && !window.google?.script?.run) return;
-      api('data').then(j => {
+      if (!CONFIG.BACKEND_URL && !window.google?.script?.run) return Promise.resolve(false);
+      return api('data').then(j => {
         if (j && j.ok) {
           STATE.backend = true;
           const previous = DATA;
@@ -4540,15 +4595,20 @@
           // จนกว่าจะมีรายการจริงใน collection ฝั่ง Google Sheets
           ['videos', 'works', 'events', 'activities', 'awards'].forEach(k => {
             if (Array.isArray(incoming[k]) && incoming[k].length === 0) {
-              DATA[k] = Array.isArray(previous[k]) && previous[k].length ? previous[k] : DEMO[k];
+              if (k === 'videos' && incoming.mediaConfigured) DATA[k] = [];
+              else DATA[k] = Array.isArray(previous[k]) && previous[k].length ? previous[k] : DEMO[k];
             }
           });
           hydrateTopics();
+          saveLocal();
           $('#apiState').textContent = 'เชื่อมต่อ Apps Script แล้ว';
           $('#apiState').classList.add('pill--ok');
           renderAll();
+          if ($('#editorPane') && !$('#editorPane').hidden) buildAdminRows();
+          return true;
         }
-      });
+        return false;
+      }).catch(() => false);
     }
 
     /* ---------- ภาพ fallback เมื่อไฟล์หาย ---------- */
@@ -4577,7 +4637,14 @@
        ============================================================ */
     function renderSettings() {
       const s = DATA.settings;
-      document.title = s.title + ' | นิทรรศการป่าไม้เพื่อชุมชน';
+      document.title = (s.title || DEMO.settings.title) + ' | นิทรรศการป่าไม้เพื่อชุมชน';
+      const h1 = $('#heroTitle');
+      if (h1 && s.title && s.title !== DEMO.settings.title) {
+        const enText = s.en || DEMO.settings.en;
+        h1.innerHTML = `<span class="mask in"><span>${esc(s.title)}</span></span><span class="l2 mask in"><span id="heroEn">${esc(enText)}</span></span>`;
+      } else if ($('#heroEn') && s.en) {
+        $('#heroEn').textContent = s.en;
+      }
       if (s.dates) {
         const timeStr = s.time && !s.dates.includes(s.time) ? ' · ' + s.time : '';
         $('#chipDate').textContent = '◷ ' + s.dates + timeStr;
@@ -4711,24 +4778,31 @@
        ============================================================ */
     function thumbOf(v) {
       if (v.kind === 'youtube' && v.yt) return `https://i.ytimg.com/vi/${esc(v.yt)}/hqdefault.jpg`;
-      return asset(v.thumb);
+      return asset(v.thumb || v.src || v.url);
     }
     function ytFallback(el) { el.onerror = null; el.src = el.src.replace('maxresdefault', 'hqdefault'); }
     function embedFor(v) {
       if (v.kind === 'image')
-        return `<img src="${esc(v.src || v.thumb || '')}" alt="${esc(v.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#08150f">`;
+        return `<img src="${esc(v.src || v.url || v.thumb || '')}" alt="${esc(v.title)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#08150f">`;
       if (v.kind === 'youtube' && v.yt)
         return `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.yt)}?autoplay=1&rel=0&modestbranding=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-      if (v.kind === 'drive' && v.src) {
-        const id = (v.src.match(/[-\w]{25,}/) || [])[0] || '';
-        return `<iframe src="https://drive.google.com/file/d/${esc(id)}/preview" title="${esc(v.title)}" allowfullscreen></iframe>`;
+      if (v.kind === 'audio' && (v.src || v.url)) {
+        const source = v.src || v.url;
+        const id = (source.match(/[-\w]{25,}/) || [])[0] || '';
+        return id
+          ? `<iframe src="https://drive.google.com/file/d/${esc(id)}/preview" title="${esc(v.title)}" allow="autoplay" allowfullscreen></iframe>`
+          : `<audio src="${esc(source)}" controls style="width:100%"></audio>`;
       }
-      if (v.src) return `<video src="${esc(v.src)}" controls autoplay style="background:#000"></video>`;
+      if ((v.kind === 'drive' || /drive\.google/i.test(v.src || v.url || '')) && (v.src || v.url)) {
+        const id = ((v.src || v.url).match(/[-\w]{25,}/) || [])[0] || '';
+        if (id) return `<iframe src="https://drive.google.com/file/d/${esc(id)}/preview" title="${esc(v.title)}" allow="autoplay" allowfullscreen></iframe>`;
+      }
+      if (v.src || v.url) return `<video src="${esc(v.src || v.url)}" controls autoplay style="background:#000"></video>`;
       return `<div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(233,229,214,.75);font-family:var(--t3);font-size:14px;text-align:center;padding:24px">
     ยังไม่แนบไฟล์วีดีโอ — อัปโหลด MP4 หรือวางลิงก์ YouTube / Drive ได้ที่แผงจัดการสื่อ</div>`;
     }
     function renderVideos() {
-      const list = DATA.videos.filter(v => v.kind !== 'file' || true);
+      const list = DATA.videos.filter(v => v.published !== false && v.kind !== 'file');
       const v = list[STATE.video] || list[0];
       if (!v) { $('#playerFrame').innerHTML = '<div class="empty">ยังไม่มีวีดีโอ</div>'; $('#playlist').innerHTML = ''; return; }
       $('#playerFrame').innerHTML = `
@@ -4769,6 +4843,8 @@
         `<span><i style="background:${TOPIC_COLOR[t.id]}"></i>หัวข้อ ${t.no} ${esc(t.title.split(' ').slice(0, 2).join(' '))}</span>`).join('')
         + `<span><i style="background:var(--moss)"></i>ทั่วไป / พิธีการ</span>`;
 
+      const exhStart = (DATA.settings && DATA.settings.exhibitionStart) || RANGE.start;
+      const exhEnd = (DATA.settings && DATA.settings.exhibitionEnd) || RANGE.end;
       const first = new Date(y, m, 1), startDow = first.getDay();
       const days = new Date(y, m + 1, 0).getDate();
       const today = iso(new Date());
@@ -4777,7 +4853,7 @@
       for (let d = 1; d <= days; d++) {
         const key = `${y}-${pad(m + 1)}-${pad(d)}`;
         const evs = eventsOn(key);
-        const inRange = key >= RANGE.start && key <= RANGE.end;
+        const inRange = key >= exhStart && key <= exhEnd;
         const dots = uniq(evs.map(e => e.topic === 'all' ? 'gen' : e.topic)).slice(0, 4);
         cells += `<button class="cday ${inRange ? 'is-exh' : ''} ${key === today ? 'is-today' : ''} ${key === STATE.cal.sel ? 'is-on' : ''}"
         data-day="${key}" aria-label="${d} ${TH_MONTH[m]}">
@@ -4788,7 +4864,7 @@
       }
       $('#calGrid').innerHTML = cells;
 
-      const total = DATA.events.filter(e => e.date >= RANGE.start && e.date <= RANGE.end).length;
+      const total = DATA.events.filter(e => e.date >= exhStart && e.date <= exhEnd).length;
       $('#calSummary').textContent = `${total} รายการในช่วงจัดแสดง · ${DATA.events.length} รายการทั้งหมด`;
       renderAgenda(STATE.cal.sel);
     }
@@ -4972,10 +5048,11 @@
         { t: 'ภาพเวทีเสวนา “ป่าที่ให้ชีวิต”', k: 'JPG', sz: '117 KB', u: 'act-stage.jpg', d: '1600×1066 px · ใช้ประกอบข่าวกิจกรรม' },
         { t: 'มาร์กโลโก้ประจำนิทรรศการ', k: 'SVG', sz: '1 KB', u: 'logo.svg', d: 'เวกเตอร์ 240×240 · ใช้ได้ทั้งบนเว็บและงานพิมพ์' }
       ];
-      const uploads = (DATA.videos || []).filter(v => v.kind === 'file' || v.kind === 'image');
+      const uploads = (DATA.videos || []).filter(v => v.published !== false &&
+        (v.kind === 'file' || v.kind === 'image' || v.kind === 'audio') && (v.src || v.url || v.thumb));
       uploads.forEach(u => files.unshift({
         t: u.title, k: (u.mimeHint || (u.kind === 'image' ? 'IMG' : 'FILE')),
-        sz: u.dur || 'อัปโหลดใหม่', u: u.src || u.thumb || '', d: u.desc || ('อัปโหลดเมื่อ ' + (u.date || ''))
+        sz: u.dur || 'อัปโหลดใหม่', u: u.src || u.url || u.thumb || '', d: u.desc || ('อัปโหลดเมื่อ ' + (u.date || ''))
       }));
       $('#pressList').innerHTML = files.map(f => `
     <a href="${asset(f.u)}" download target="_blank" rel="noopener">
@@ -5096,12 +5173,20 @@
           $$('.tabpane').forEach(p => p.hidden = p.dataset.pane !== tab.dataset.tab); return;
         }
 
-        const sv = e.target.closest('[data-save]'); if (sv) { saveEntity(sv.dataset.save); return; }
+        const publish = e.target.closest('[data-publish]');
+        if (publish) { saveEntity(publish.dataset.publish, true); return; }
+        const editMediaButton = e.target.closest('[data-edit-media]');
+        if (editMediaButton) { editMedia(editMediaButton.dataset.editMedia); return; }
+        const togglePublish = e.target.closest('[data-toggle-publish]');
+        if (togglePublish) { setMediaPublished(togglePublish.dataset.togglePublish); return; }
+        const sv = e.target.closest('[data-save]'); if (sv) { saveEntity(sv.dataset.save, false); return; }
         if (e.target.closest('[data-reloadtopics]')) {
           DATA.topics = JSON.parse(JSON.stringify(DEMO.topics));
           if (DATA.settings) delete DATA.settings.mapimg; renderTopicsForm(); renderAll(); toast('โหลดค่าตั้งต้นของ 4 หัวข้อกลับมาแล้ว');
         }
         const cl = e.target.closest('[data-clear]'); if (cl) { clearForm(cl.dataset.clear); return; }
+        const ed = e.target.closest('[data-edit]');
+        if (ed) { editEntity(ed.dataset.collection, ed.dataset.id); return; }
         const rm = e.target.closest('[data-remove]');
         if (rm) { removeEntity(rm.dataset.collection, rm.dataset.id); return; }
       });
@@ -5188,93 +5273,245 @@
     function openAdmin() { $('#adminModal').classList.add('open'); setTimeout(() => $('#passInput').focus(), 260); }
     function formVals(prefix, keys) { const o = {}; keys.forEach(k => o[k] = ($('#' + prefix + '_' + k) || {}).value || ''); return o; }
     function clearForm(coll) {
+      delete STATE.editing[coll];
       const map = {
         media: ['m', 'type', 'topic', 'title', 'desc', 'url', 'dur', 'credit', 'date'], works: ['w', 'title', 'topic', 'kind', 'owner', 'desc', 'img', 'year'],
         events: ['e', 'title', 'date', 'time', 'time2', 'place', 'topic', 'desc', 'kind', 'cap'], activities: ['a', 'title', 'date', 'place', 'topic', 'desc'],
         awards: ['r', 'title', 'year', 'from', 'to', 'level', 'topic', 'desc']
       };
       (map[coll] || []).slice(1).forEach(k => { const el = $('#' + map[coll][0] + '_' + k); if (el) el.value = ''; });
-      if (coll === 'media') $('#m_file').value = '';
+      if (coll === 'media') {
+        $('#m_file').value = '';
+        $('#m_type').value = 'video';
+        $('#m_topic').value = 'all';
+        $('#m_fileInfo').textContent = 'รองรับภาพ วีดีโอ เสียง เอกสาร และไฟล์ทั่วไป · ไม่เกิน 20MB ต่อไฟล์ (ไฟล์ใหญ่ใช้ลิงก์ Drive)';
+        $('#m_prog').textContent = '';
+        STATE.mediaEditing = '';
+        $('[data-save="media"]').textContent = 'บันทึกร่าง';
+        $('[data-publish="media"]').textContent = 'บันทึกและเผยแพร่';
+      } else if (map[coll]) {
+        const p = map[coll][0];
+        const fi = $('#' + p + '_file'); if (fi) fi.value = '';
+        const prog = $('#' + p + '_prog'); if (prog) prog.textContent = '';
+      }
+    }
+    function editEntity(coll, id) {
+      const it = (DATA[coll] || []).find(x => x.id === id);
+      if (!it) return toast('ไม่พบรายการที่ต้องการแก้ไข', true);
+      STATE.editing[coll] = id;
+      const setVals = (prefix, obj, keys) => keys.forEach(k => {
+        const el = $('#' + prefix + '_' + k);
+        if (el) el.value = obj[k] !== undefined && obj[k] !== null ? obj[k] : '';
+      });
+      if (coll === 'works') {
+        setVals('w', it, ['title', 'topic', 'kind', 'owner', 'desc', 'img', 'year']);
+        $('#w_prog').textContent = 'กำลังแก้ไข: ' + (it.title || '');
+      } else if (coll === 'events') {
+        setVals('e', it, ['title', 'date', 'time', 'time2', 'place', 'topic', 'desc', 'kind', 'cap']);
+      } else if (coll === 'activities') {
+        setVals('a', it, ['title', 'date', 'place', 'topic', 'desc']);
+        const n = (it.imgs || []).length;
+        $('#a_prog').textContent = 'กำลังแก้ไข: ' + (it.title || '') + (n ? ` (มี ${n} ภาพเดิม · เลือกไฟล์ใหม่เพื่อแทนที่)` : '');
+      } else if (coll === 'awards') {
+        setVals('r', it, ['title', 'year', 'from', 'to', 'level', 'topic', 'desc']);
+      }
+      const pane = $(`.tabpane[data-pane="${coll}"]`);
+      if (pane) pane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toast('โหลดข้อมูลลงฟอร์มแล้ว · แก้ไขและกดบันทึกได้เลย');
     }
     async function uploadFile(input, prefix) {
       const file = input.files[0]; if (!file) return null;
-      if (file.size > 19 * 1024 * 1024 && !STATE.backend) {
-        toast('โหมดสาธิตรับไฟล์ไม่เกิน 19MB · เชื่อม Apps Script เพื่ออัปโหลดไฟล์ใหญ่', true); return null;
+      const maxSize = STATE.token ? 20 * 1024 * 1024 : 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        toast(STATE.token ? 'ไฟล์ต้องมีขนาดไม่เกิน 20MB ต่อไฟล์' : 'โหมดในเครื่องรองรับไฟล์ไม่เกิน 2MB · เข้าสู่ระบบ Apps Script เพื่ออัปโหลดจริง', true);
+        return null;
       }
       const info = $('#' + prefix + '_fileInfo'); const prog = $('#' + prefix + '_prog');
       info.innerHTML = `<span class="spin"></span> กำลังส่ง ${esc(file.name)} (${(file.size / 1048576).toFixed(1)} MB)`;
-      const dataUrl = await new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(file); });
+      let dataUrl;
+      try {
+        dataUrl = await new Promise((res, rej) => {
+          const r = new FileReader();
+          r.onload = () => res(r.result);
+          r.onerror = () => rej(new Error('อ่านไฟล์จากเครื่องไม่สำเร็จ'));
+          r.readAsDataURL(file);
+        });
+      } catch (err) {
+        prog.textContent = err.message;
+        toast(err.message, true);
+        return null;
+      }
       const b64 = String(dataUrl).split(',')[1];
       if (!STATE.backend || !STATE.token) {
-        if (file.type.startsWith('image/')) { prog.textContent = 'บันทึกภาพในเครื่องนี้ (localStorage) '; return b64toUrl(dataUrl); }
+        if (file.type.startsWith('image/')) {
+          prog.textContent = 'บันทึกภาพในเครื่องนี้ (ไม่เผยแพร่สู่ผู้ชมอื่น)';
+          return { url: b64toUrl(dataUrl), thumb: b64toUrl(dataUrl), mime: file.type };
+        }
         prog.textContent = 'ไฟล์วีดีโอ/เอกสารต้องเชื่อม Apps Script และล็อกอินก่อน จึงจะอัปโหลดได้';
         toast('ยังไม่ได้เชื่อมต่อ Apps Script หรือยังไม่ได้รับ Token สิทธิ์บันทึก', true); return null;
       }
-      const j = await api('upload', { file: { name: file.name, mime: file.type, data: b64 } });
-      if (j && j.ok) { prog.textContent = 'อัปโหลดเรียบร้อย → Drive'; return j.url; }
-      prog.textContent = 'อัปโหลดไม่สำเร็จ: ' + (j && j.error || ''); toast('อัปโหลดไม่สำเร็จ', true); return null;
+      let uploadId = '';
+      try {
+        let j;
+        if (file.size <= 3 * 1024 * 1024) {
+          j = await api('upload', { file: { name: file.name, mime: file.type, data: b64 } });
+        } else {
+          uploadId = uid('up-');
+          const chunkSize = 1398100;
+          const total = Math.ceil(b64.length / chunkSize);
+          for (let index = 0; index < total; index++) {
+            prog.textContent = `กำลังอัปโหลดส่วนที่ ${index + 1}/${total}`;
+            const part = await api('uploadchunk', {
+              uploadId, index, total, name: file.name, mime: file.type,
+              data: b64.slice(index * chunkSize, (index + 1) * chunkSize)
+            });
+            if (!part || !part.ok) throw new Error((part && part.error) || 'อัปโหลดข้อมูลไม่ครบ');
+          }
+          prog.textContent = 'กำลังรวมไฟล์บน Google Drive…';
+          j = await api('uploadcommit', { uploadId });
+        }
+        if (!j || !j.ok) throw new Error((j && j.error) || 'เซิร์ฟเวอร์ไม่สามารถบันทึกไฟล์ได้');
+        prog.textContent = 'อัปโหลดเรียบร้อย → Google Drive';
+        return j;
+      } catch (err) {
+        let detail = err.message;
+        if (uploadId) {
+          try {
+            const cleanup = await api('uploadcancel', { uploadId });
+            if (!cleanup || !cleanup.ok) detail += ' (ล้างไฟล์ชั่วคราวไม่สำเร็จ)';
+          } catch (cleanupErr) {
+            detail += ' (ล้างไฟล์ชั่วคราวไม่สำเร็จ: ' + cleanupErr.message + ')';
+          }
+        }
+        prog.textContent = 'อัปโหลดไม่สำเร็จ: ' + detail;
+        toast('อัปโหลดไม่สำเร็จ: ' + detail, true);
+        return null;
+      }
     }
     function b64toUrl(u) { return u; }
 
-    async function saveEntity(coll) {
-      let item = null;
-      if (coll === 'media') {
-        const f = $('#m_file'), v = formVals('m', ['type', 'topic', 'title', 'desc', 'url', 'dur', 'credit', 'date']);
-        if (!v.title) return toast('กรอกชื่อเรื่องก่อน', true);
-        let url = v.url, thumb = '';
-        if (f.files[0]) {
-          const up = await uploadFile(f, 'm'); if (!up) return;
-          url = up; if (v.type === 'image') thumb = up;
-        }
-        if (!url) return toast('แนบลิงก์หรือเลือกไฟล์สื่อ', true);
-        const kind = /youtube|youtu\.be/i.test(url) ? 'youtube' : /drive\.google/i.test(url) ? 'drive'
-          : (v.type === 'image' ? 'image' : v.type === 'file' ? 'file' : 'video');
-        const yt = (url.match(/[?&]v=([\w-]{6,})/) || url.match(/youtu\.be\/([\w-]{6,})/) || [])[1] || '';
-        item = {
-          id: uid('v'), title: v.title, desc: v.desc, topic: v.topic, kind: kind === 'image' ? 'image' : kind,
-          yt: kind === 'youtube' ? yt : '', src: kind === 'youtube' ? '' : url, thumb: thumb || '',
-          credit: v.credit, dur: v.dur, date: v.date
+    async function saveMedia(publish) {
+      const f = $('#m_file');
+      const v = formVals('m', ['type', 'topic', 'title', 'desc', 'url', 'dur', 'credit', 'date']);
+      if (!v.title.trim()) return toast('กรอกชื่อเรื่องก่อน', true);
+      const current = DATA.videos.find(item => item.id === STATE.mediaEditing);
+      let url = v.url.trim();
+      let thumb = current && current.thumb || '';
+      let mimeHint = current && current.mimeHint || '';
+      if (f.files[0]) {
+        const file = f.files[0];
+        const ext = (file.name.split('.').pop() || '').toLowerCase();
+        const typeMatches = {
+          image: file.type.startsWith('image/') || ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'].includes(ext),
+          video: file.type.startsWith('video/') || ['mp4', 'm4v', 'mov', 'webm', 'ogv'].includes(ext),
+          audio: file.type.startsWith('audio/') || ['mp3', 'wav', 'm4a', 'ogg', 'aac', 'flac'].includes(ext),
+          file: true
         };
-        DATA.videos.unshift(item);
+        if (!typeMatches[v.type]) return toast('ชนิดไฟล์ไม่ตรงกับประเภทสื่อที่เลือก', true);
+        const uploaded = await uploadFile(f, 'm');
+        if (!uploaded) return;
+        url = uploaded.url;
+        thumb = uploaded.thumb || (v.type === 'image' ? uploaded.url : thumb);
+        mimeHint = uploaded.mime || f.files[0].type || mimeHint;
       }
+      if (!url) return toast('แนบลิงก์หรือเลือกไฟล์สื่อ', true);
+      if (!/^(https?:\/\/|data:image\/)/i.test(url)) return toast('ลิงก์สื่อต้องขึ้นต้นด้วย http:// หรือ https://', true);
+
+      const youtube = /youtube|youtu\.be/i.test(url);
+      const kind = v.type === 'image' ? 'image' : v.type === 'file' ? 'file' : v.type === 'audio' ? 'audio'
+        : youtube ? 'youtube' : /drive\.google/i.test(url) ? 'drive' : 'video';
+      const yt = (url.match(/[?&]v=([\w-]{6,})/) ||
+        url.match(/youtu\.be\/([\w-]{6,})/) ||
+        url.match(/youtube\.com\/(?:embed|shorts|live)\/([\w-]{6,})/) || [])[1] || '';
+      const item = {
+        ...(current || {}),
+        id: current ? current.id : uid('v'),
+        title: v.title.trim(), desc: v.desc.trim(), topic: v.topic, kind,
+        yt: kind === 'youtube' ? yt : '',
+        src: kind === 'youtube' ? '' : url,
+        url: kind === 'youtube' ? '' : url,
+        thumb: thumb || (kind === 'image' ? url : ''),
+        credit: v.credit.trim(), dur: v.dur.trim(), date: v.date,
+        mimeHint: mimeHint || current && current.mimeHint || '',
+        published: !!publish
+      };
+      if (kind === 'youtube' && !yt) return toast('ลิงก์ YouTube ไม่ถูกต้อง', true);
+
+      let result;
+      try { result = await api('save', { collection: 'videos', item }); }
+      catch (err) {
+        toast('บันทึกสื่อไม่สำเร็จ: ' + err.message, true);
+        return;
+      }
+      if (!result || (!result.ok && !result.local)) {
+        toast('บันทึกสื่อไม่สำเร็จ: ' + ((result && result.error) || 'ไม่ทราบสาเหตุ'), true);
+        return;
+      }
+      const index = DATA.videos.findIndex(entry => entry.id === item.id);
+      if (index < 0) DATA.videos.unshift(item); else DATA.videos[index] = item;
+      saveLocal();
+      renderAll();
+      buildAdminRows();
+      clearForm('media');
+      toast(result.warning
+        ? 'บันทึกสื่อแล้ว แต่ลบไฟล์เดิมจาก Drive ไม่สำเร็จ: ' + result.warning
+        : result.local
+        ? (publish ? 'บันทึกในเครื่องแล้ว · ยังไม่เผยแพร่บนเว็บไซต์สาธารณะ' : 'บันทึกร่างไว้ในเครื่องนี้แล้ว')
+        : (publish ? 'บันทึกและเผยแพร่สื่อแล้ว' : 'บันทึกร่างสื่อแล้ว'));
+    }
+
+    async function saveEntity(coll, publish) {
+      if (coll === 'media') return saveMedia(!!publish);
+      let item = null;
+      const editId = STATE.editing[coll] || '';
+      const upsert = (arr, it, toEnd) => {
+        const idx = editId ? arr.findIndex(x => x.id === editId) : -1;
+        if (idx >= 0) arr[idx] = it;
+        else if (toEnd) arr.push(it);
+        else arr.unshift(it);
+      };
       if (coll === 'works') {
         const f = $('#w_file'), v = formVals('w', ['title', 'topic', 'kind', 'owner', 'desc', 'img', 'year']);
         if (!v.title) return toast('กรอกชื่อผลงานก่อน', true);
-        let img = v.img;
-        if (f.files[0]) { const up = await uploadFile(f, 'w'); if (up) img = up; }
-        item = { id: uid('w'), ...v, img };
-        DATA.works.unshift(item);
+        const prev = editId ? DATA.works.find(x => x.id === editId) : null;
+        let img = v.img || (prev ? prev.img : '');
+        if (f.files[0]) { const up = await uploadFile(f, 'w'); if (up) img = up.url; }
+        item = { id: editId || uid('w'), ...v, img };
+        upsert(DATA.works, item, false);
       }
       if (coll === 'events') {
         const v = formVals('e', ['title', 'date', 'time', 'time2', 'place', 'topic', 'desc', 'kind', 'cap']);
         if (!v.title || !v.date) return toast('กรอกชื่องานและวันที่', true);
-        item = { id: uid('e'), ...v };
-        DATA.events.push(item);
+        item = { id: editId || uid('e'), ...v };
+        upsert(DATA.events, item, true);
         const d = new Date(v.date + 'T00:00:00'); STATE.cal = { y: d.getFullYear(), m: d.getMonth(), sel: v.date };
       }
       if (coll === 'activities') {
         const f = $('#a_file'), v = formVals('a', ['title', 'date', 'place', 'topic', 'desc']);
         if (!v.title) return toast('กรอกชื่อกิจกรรม', true);
-        const imgs = [];
+        const prev = editId ? DATA.activities.find(x => x.id === editId) : null;
+        let imgs = prev && Array.isArray(prev.imgs) ? [...prev.imgs] : [];
         if (f.files.length) {
+          imgs = [];
           for (const file of [...f.files]) {
             const one = await uploadOne(file); if (one) imgs.push(one);
           }
           $('#a_prog').textContent = imgs.length + ' ภาพพร้อมแสดง';
         }
-        if (!imgs.length) return toast('เลือกรูปภาพกิจกรรมอย่างน้อย 1 ไฟล์', true);
-        item = { id: uid('a'), ...v, imgs };
-        DATA.activities.unshift(item);
+        item = { id: editId || uid('a'), ...v, imgs };
+        upsert(DATA.activities, item, false);
       }
       if (coll === 'awards') {
         const v = formVals('r', ['title', 'year', 'from', 'to', 'level', 'topic', 'desc']);
         if (!v.title) return toast('กรอกชื่อรางวัล', true);
-        item = { id: uid('r'), ...v };
-        DATA.awards.unshift(item);
+        item = { id: editId || uid('r'), ...v };
+        upsert(DATA.awards, item, false);
       }
       if (coll === 'settings') {
         DATA.settings = Object.assign({}, DATA.settings, {
           title: $('#s_title').value, en: $('#s_en').value, dates: $('#s_dates').value, time: $('#s_time').value,
+          exhibitionStart: $('#s_exhStart') ? $('#s_exhStart').value : DATA.settings.exhibitionStart,
+          exhibitionEnd: $('#s_exhEnd') ? $('#s_exhEnd').value : DATA.settings.exhibitionEnd,
           venue: $('#s_venue').value, lead: $('#s_lead').value, hero: $('#s_hero').value,
           tel: $('#s_tel').value, mail: $('#s_mail').value, map: $('#s_map').value
         });
@@ -5314,10 +5551,10 @@
       }
       if (!item) return;
       const j = await api('save', { collection: coll, item });
-      if (j && j.ok) toast('บันทึกลง Google Sheets แล้ว');
-      else if (j && j.local) { saveLocal(); toast('บันทึกในโหมดสาธิต (localStorage)'); }
+      saveLocal();
+      if (j && j.ok) toast(editId ? 'อัปเดตลง Google Sheets แล้ว' : 'บันทึกลง Google Sheets แล้ว');
+      else if (j && j.local) toast('บันทึกในโหมดสาธิต (localStorage)');
       else {
-        saveLocal();
         const reason = (j && j.error) ? ': ' + j.error : '';
         toast('บันทึกในเครื่องแล้ว · ' + (STATE.token ? 'ส่ง Apps Script ไม่สำเร็จ' : 'ยังไม่ได้เชื่อมต่อ Apps Script') + reason, true);
       }
@@ -5330,24 +5567,85 @@
       const j = await api('upload', { file: { name: file.name, mime: file.type, data: String(dataUrl).split(',')[1] } });
       return j && j.ok ? j.url : null;
     }
+    function editMedia(id) {
+      const item = DATA.videos.find(entry => entry.id === id);
+      if (!item) return;
+      STATE.mediaEditing = id;
+      $('#m_type').value = item.kind === 'image' ? 'image' : item.kind === 'file' ? 'file' : item.kind === 'audio' ? 'audio' : 'video';
+      $('#m_topic').value = item.topic || 'all';
+      $('#m_title').value = item.title || '';
+      $('#m_desc').value = item.desc || '';
+      $('#m_url').value = item.kind === 'youtube' && item.yt ? 'https://youtu.be/' + item.yt : (item.src || item.url || '');
+      $('#m_dur').value = item.dur || '';
+      $('#m_credit').value = item.credit || '';
+      $('#m_date').value = item.date || '';
+      $('#m_file').value = '';
+      $('#m_fileInfo').textContent = 'เลือกไฟล์ใหม่ได้ (ไม่เลือกจะใช้ไฟล์เดิม)';
+      $('[data-save="media"]').textContent = 'บันทึกเป็นร่าง';
+      $('[data-publish="media"]').textContent = 'บันทึกและเผยแพร่';
+      $('#m_title').focus();
+    }
+    async function setMediaPublished(id) {
+      const item = DATA.videos.find(entry => entry.id === id);
+      if (!item) return;
+      const updated = { ...item, published: item.published === false };
+      let result;
+      try { result = await api('save', { collection: 'videos', item: updated }); }
+      catch (err) {
+        toast('เปลี่ยนสถานะเผยแพร่ไม่สำเร็จ: ' + err.message, true);
+        return;
+      }
+      if (!result || (!result.ok && !result.local)) {
+        toast('เปลี่ยนสถานะเผยแพร่ไม่สำเร็จ: ' + ((result && result.error) || 'ไม่ทราบสาเหตุ'), true);
+        return;
+      }
+      DATA.videos = DATA.videos.map(entry => entry.id === id ? updated : entry);
+      saveLocal();
+      renderAll();
+      buildAdminRows();
+      toast(updated.published ? 'เผยแพร่สื่อแล้ว' : 'ยกเลิกการเผยแพร่แล้ว');
+    }
     async function removeEntity(coll, id) {
+      if (!confirm('ยืนยันลบรายการนี้ใช่หรือไม่?')) return;
+      if (coll !== 'settings') {
+        let j;
+        try { j = await api('save', { collection: coll, item: { id, _deleted: true } }); }
+        catch (err) {
+          toast('ลบรายการไม่สำเร็จ: ' + err.message, true);
+          return;
+        }
+        if (!j || (!j.ok && !j.local)) {
+          toast('ลบรายการไม่สำเร็จ: ' + ((j && j.error) || 'ไม่ทราบสาเหตุ'), true);
+          return;
+        }
+      }
       DATA[coll] = (DATA[coll] || []).filter(x => x.id !== id);
-      if (coll === 'settings') return;
-      const j = await api('save', { collection: coll, item: { id, _deleted: true } });
-      if (!(j && j.ok)) saveLocal();
-      renderAll(); buildAdminRows(); toast('ลบรายการแล้ว');
+      saveLocal();
+      renderAll();
+      buildAdminRows();
+      toast('ลบรายการแล้ว');
     }
     function rowHtml(coll, it, main, sub, img) {
       return `<div class="row">
     ${img ? `<img src="${asset(img)}" alt="">` : `<span class="noimg">—</span>`}
     <span><b>${esc(main)}</b><small>${esc(sub)}</small></span>
     <span class="pill">${esc(coll)}</span>
-    <button class="del" data-remove data-collection="${coll}" data-id="${esc(it.id)}">ลบ</button>
+    <div class="row__acts">
+      <button class="edit" data-edit data-collection="${coll}" data-id="${esc(it.id)}">แก้ไข</button>
+      <button class="del" data-remove data-collection="${coll}" data-id="${esc(it.id)}">ลบ</button>
+    </div>
   </div>`;
     }
     function buildAdminRows() {
-      $('#rowsMedia').innerHTML = DATA.videos.map(v => rowHtml('videos', v, v.title,
-        `${v.kind.toUpperCase()} · ${v.topic === 'all' ? 'ทั่วไป' : TOPIC_NAME[v.topic] || ''} · ${v.credit || ''}`, v.thumb || (v.kind === 'youtube' ? '' : v.thumb))).join('')
+      $('#rowsMedia').innerHTML = DATA.videos.map(v => `
+        <div class="row row--media">
+          ${v.thumb ? `<img src="${asset(v.thumb)}" alt="">` : `<span class="noimg">สื่อ</span>`}
+          <span><b>${esc(v.title)}</b><small>${esc(String(v.kind || 'media').toUpperCase())} · ${v.topic === 'all' ? 'ทั่วไป' : esc(TOPIC_NAME[v.topic] || '')} · ${esc(v.credit || '')}</small></span>
+          <span class="pill">${v.published === false ? 'ร่าง' : 'เผยแพร่'}</span>
+          <button class="edit" data-edit-media="${esc(v.id)}">แก้ไข</button>
+          <button class="publish" data-toggle-publish="${esc(v.id)}">${v.published === false ? 'เผยแพร่' : 'ซ่อน'}</button>
+          <button class="del" data-remove data-collection="videos" data-id="${esc(v.id)}">ลบ</button>
+        </div>`).join('')
         || '<div class="empty">ยังไม่มีสื่อ</div>';
       $('#rowsWorks').innerHTML = DATA.works.map(w => rowHtml('works', w, w.title, `${w.kind} · ${TOPIC_NAME[w.topic]} · ${w.owner}`, w.img)).join('') || '<div class="empty">ยังไม่มีผลงาน</div>';
       $('#rowsEvents').innerHTML = [...DATA.events].sort((a, b) => a.date < b.date ? 1 : -1).slice(0, 24)
@@ -5355,14 +5653,20 @@
       $('#rowsActivities').innerHTML = DATA.activities.map(a => rowHtml('activities', a, a.title, `${thDate(a.date)} · ${a.place}`, (a.imgs || [])[0])).join('') || '<div class="empty">ยังไม่มีกิจกรรม</div>';
       $('#rowsAwards').innerHTML = DATA.awards.map(r => rowHtml('awards', r, `${r.level} · ${r.title}`, `${r.year} · ${r.from} · ผู้รับ ${r.to}`, '')).join('') || '<div class="empty">ยังไม่มีรางวัล</div>';
       const s = DATA.settings;
-      [['s_title', 'title'], ['s_en', 'en'], ['s_dates', 'dates'], ['s_time', 'time'], ['s_venue', 'venue'], ['s_lead', 'lead'], ['s_hero', 'hero'], ['s_tel', 'tel'], ['s_mail', 'mail'], ['s_map', 'map']]
+      [['s_title', 'title'], ['s_en', 'en'], ['s_dates', 'dates'], ['s_time', 'time'], ['s_exhStart', 'exhibitionStart'], ['s_exhEnd', 'exhibitionEnd'], ['s_venue', 'venue'], ['s_lead', 'lead'], ['s_hero', 'hero'], ['s_tel', 'tel'], ['s_mail', 'mail'], ['s_map', 'map']]
         .forEach(([id, k]) => { const el = $('#' + id); if (el) el.value = s[k] || ''; });
       renderTopicsForm();
     }
     function initAdmin() {
       $('#adminOpen').addEventListener('click', openAdmin);
       $('#adminClose').addEventListener('click', () => $('#adminModal').classList.remove('open'));
+      const rf = $('#refreshDataBtn');
+      if (rf) rf.addEventListener('click', () => {
+        toast('กำลังโหลดข้อมูลล่าสุดจาก Google Sheets…');
+        pingBackend().then(ok => toast(ok ? 'อัปเดตข้อมูลล่าสุดจาก Google Sheets แล้ว' : 'ยังไม่ได้เชื่อมต่อ Apps Script', !ok));
+      });
       $('#adminModal').addEventListener('click', e => { if (e.target === $('#adminModal')) $('#adminModal').classList.remove('open'); });
+      $('#refreshDataBtn').addEventListener('click', loadAdminData);
       $('#loginBtn').addEventListener('click', doLogin);
       $('#passInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
       ['m', 'w', 'a', 'p'].forEach(p => {
@@ -5416,19 +5720,10 @@
             $('#apiState').classList.add('pill--ok');
             enterEditor();
           } else {
-            if (pass === CONFIG.DEMO_PASS) {
-              enterEditor();
-              toast('เข้าสู่ระบบโหมดสาธิต (รหัสผ่าน Apps Script ไม่ตรง)', true);
-            } else {
-              msg.textContent = (j && j.error) ? 'รหัสผ่านไม่ถูกต้อง: ' + j.error : 'รหัสผ่านไม่ถูกต้อง';
-            }
+            msg.textContent = (j && j.error) ? 'เข้าสู่ระบบไม่สำเร็จ: ' + j.error : 'เข้าสู่ระบบไม่สำเร็จ';
           }
         }).catch(err => {
-          if (pass === CONFIG.DEMO_PASS) {
-            enterEditor();
-          } else {
-            msg.textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้: ' + (err.message || err);
-          }
+          msg.textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้: ' + (err.message || err);
         });
         return;
       }
@@ -5441,7 +5736,33 @@
       msg0(); $('#loginPane').hidden = true; $('#editorPane').hidden = false;
       buildAdminRows();
       toast(STATE.token ? 'เข้าสู่ระบบแล้ว · บันทึกลง Google Sheets และ Drive' : 'เข้าโหมดจัดการสื่อแล้ว · โหมดสาธิตบันทึกลงเบราว์เซอร์');
+      if (STATE.token) loadAdminData();
       function msg0() { $('#loginMsg').textContent = ''; }
+    }
+    async function loadAdminData() {
+      if (!STATE.token) {
+        toast('เข้าสู่ระบบผู้ดูแลก่อนโหลดข้อมูลจาก Google Sheets', true);
+        return;
+      }
+      const button = $('#refreshDataBtn');
+      if (button) button.disabled = true;
+      try {
+        const result = await api('adminData');
+        if (!result || !result.ok || !result.data) {
+          toast('โหลดข้อมูลจากเซิร์ฟเวอร์ไม่สำเร็จ: ' + ((result && result.error) || 'ไม่ทราบสาเหตุ'), true);
+          return;
+        }
+        DATA = Object.assign(JSON.parse(JSON.stringify(DEMO)), result.data);
+        DATA.settings = Object.assign({}, DEMO.settings, result.data.settings || {});
+        hydrateTopics();
+        renderAll();
+        buildAdminRows();
+        toast('โหลดข้อมูลล่าสุดจาก Google Sheets แล้ว');
+      } catch (err) {
+        toast('โหลดข้อมูลไม่สำเร็จ: ' + err.message, true);
+      } finally {
+        if (button) button.disabled = false;
+      }
     }
 
     /* ============================================================
