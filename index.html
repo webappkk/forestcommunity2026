@@ -5315,6 +5315,9 @@
             }
           });
           hydrateTopics();
+          if ((!Array.isArray(DATA.carbonStudies) || !DATA.carbonStudies.length) && Array.isArray(previous.carbonStudies) && previous.carbonStudies.length) {
+            DATA.carbonStudies = previous.carbonStudies;
+          }
           saveLocal();
           $('#apiState').textContent = 'เชื่อมต่อ Apps Script แล้ว';
           $('#apiState').classList.add('pill--ok');
@@ -6275,6 +6278,7 @@
 
     async function saveEntity(coll, publish) {
       if (coll === 'media') return saveMedia(!!publish);
+      const origColl = coll;
       let item = null;
       const isTopicsUpdate = coll === 'topics';
       let updatedTopics = null;
@@ -6345,8 +6349,7 @@
         upsert(DATA.carbonStudies, studyItem, false);
         item = Object.assign({}, DATA.settings, { carbonStudies: JSON.stringify(DATA.carbonStudies) });
         coll = 'settings';
-      }
-      if (coll === 'settings') {
+      } else if (coll === 'settings') {
         DATA.settings = Object.assign({}, DATA.settings, {
           title: $('#s_title').value, en: $('#s_en').value, dates: $('#s_dates').value, time: $('#s_time').value,
           exhibitionStart: $('#s_exhStart') ? $('#s_exhStart').value : DATA.settings.exhibitionStart,
@@ -6423,7 +6426,7 @@
         toast('บันทึกในเครื่องแล้ว · ' + (STATE.token ? 'ส่ง Apps Script ไม่สำเร็จ' : 'ยังไม่ได้เชื่อมต่อ Apps Script') + reason, true);
       }
       renderAll(); buildAdminRows();
-      if (coll !== 'settings') clearForm(coll);
+      if (origColl !== 'settings' && origColl !== 'topics') clearForm(origColl);
     }
     async function uploadOne(file) {
       if (file.size > 10 * 1024 * 1024) {
@@ -6682,15 +6685,4 @@
        INIT
        ============================================================ */
     document.addEventListener('DOMContentLoaded', async () => {
-      loadLocal();
-      initChrome(); initClicks(); initAdmin(); initRail();
-      renderAll();
-      scrollToDeepLink();
-      pingBackend();
-      // hero first paint
-      requestAnimationFrame(() => $$('.hero .mask-host').forEach(el => el.classList.add('in')));
-    });
-  </script>
-</body>
-
-</html>
+      loadLocal
