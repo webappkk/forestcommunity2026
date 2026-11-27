@@ -5179,6 +5179,11 @@
       const base = CONFIG.ASSET_BASE || '';
       let rel = String(p).replace(/^\.\/+/, '');
       if (base && rel.indexOf(base) === 0) rel = rel.slice(base.length);   // กันพิมพ์ assets/ ซ้ำ
+      const settingKey = 'driveAsset_' + rel.replace(/\//g, '__');
+      const driveUrl = DATA.settings && DATA.settings[settingKey];
+      if (typeof driveUrl === 'string' && /^https:\/\/lh3\.googleusercontent\.com\/d\/[-\w]+=w\d+$/.test(driveUrl)) {
+        return driveUrl;
+      }
       return base + rel;
     }
     function thDate(s, full) {
