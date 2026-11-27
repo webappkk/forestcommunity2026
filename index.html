@@ -5315,9 +5315,6 @@
             }
           });
           hydrateTopics();
-          if ((!Array.isArray(DATA.carbonStudies) || !DATA.carbonStudies.length) && Array.isArray(previous.carbonStudies) && previous.carbonStudies.length) {
-            DATA.carbonStudies = previous.carbonStudies;
-          }
           saveLocal();
           $('#apiState').textContent = 'เชื่อมต่อ Apps Script แล้ว';
           $('#apiState').classList.add('pill--ok');
@@ -6278,10 +6275,11 @@
 
     async function saveEntity(coll, publish) {
       if (coll === 'media') return saveMedia(!!publish);
-      const origColl = coll;
       let item = null;
       const isTopicsUpdate = coll === 'topics';
+      const isCarbonUpdate = coll === 'carbon';
       let updatedTopics = null;
+      let updatedCarbonStudies = null;
       let updatedMapimg = '';
       const editId = STATE.editing[coll] || '';
       const upsert = (arr, it, toEnd) => {
@@ -6345,11 +6343,13 @@
           summary: v.summary.trim(),
           image
         };
-        if (!Array.isArray(DATA.carbonStudies)) DATA.carbonStudies = [];
-        upsert(DATA.carbonStudies, studyItem, false);
-        item = Object.assign({}, DATA.settings, { carbonStudies: JSON.stringify(DATA.carbonStudies) });
+        const nextStudies = Array.isArray(DATA.carbonStudies) ? [...DATA.carbonStudies] : [];
+        upsert(nextStudies, studyItem, false);
+        updatedCarbonStudies = nextStudies;
+        item = Object.assign({}, DATA.settings, { carbonStudies: JSON.stringify(nextStudies) });
         coll = 'settings';
-      } else if (coll === 'settings') {
+      }
+      if (coll === 'settings' && !isCarbonUpdate) {
         DATA.settings = Object.assign({}, DATA.settings, {
           title: $('#s_title').value, en: $('#s_en').value, dates: $('#s_dates').value, time: $('#s_time').value,
           exhibitionStart: $('#s_exhStart') ? $('#s_exhStart').value : DATA.settings.exhibitionStart,
@@ -6418,6 +6418,13 @@
         DATA.topics = updatedTopics;
         DATA.settings = Object.assign({}, DATA.settings, { mapimg: updatedMapimg });
       }
+      if (isCarbonUpdate) {
+        if (!j || (!j.ok && !j.local)) {
+          toast('บันทึกอินโฟกราฟิกไม่สำเร็จ: ' + ((j && j.error) || 'ไม่ทราบสาเหตุ'), true);
+          return;
+        }
+        DATA.carbonStudies = updatedCarbonStudies;
+      }
       saveLocal();
       if (j && j.ok) toast(editId ? 'อัปเดตลง Google Sheets แล้ว' : 'บันทึกลง Google Sheets แล้ว');
       else if (j && j.local) toast('บันทึกในโหมดสาธิต (localStorage)');
@@ -6426,7 +6433,8 @@
         toast('บันทึกในเครื่องแล้ว · ' + (STATE.token ? 'ส่ง Apps Script ไม่สำเร็จ' : 'ยังไม่ได้เชื่อมต่อ Apps Script') + reason, true);
       }
       renderAll(); buildAdminRows();
-      if (origColl !== 'settings' && origColl !== 'topics') clearForm(origColl);
+      if (coll !== 'settings') clearForm(coll);
+      else if (isCarbonUpdate) clearForm('carbon');
     }
     async function uploadOne(file) {
       if (file.size > 10 * 1024 * 1024) {
@@ -6685,4 +6693,15 @@
        INIT
        ============================================================ */
     document.addEventListener('DOMContentLoaded', async () => {
-      loadLocal
+      loadLocal();
+      initChrome(); initClicks(); initAdmin(); initRail();
+      renderAll();
+      scrollToDeepLink();
+      pingBackend();
+      // hero first paint
+      requestAnimationFrame(() => $$('.hero .mask-host').forEach(el => el.classList.add('in')));
+    });
+  </script>
+</body>
+
+</html>
