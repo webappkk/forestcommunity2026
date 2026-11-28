@@ -505,6 +505,64 @@
       opacity: .72
     }
 
+    .partners {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: none
+    }
+
+    .partners img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      border: 0
+    }
+
+    .partners--bar {
+      margin-left: 6px;
+      padding-left: 14px;
+      border-left: 1px solid rgba(255, 255, 255, .28)
+    }
+
+    .partners--bar img {
+      width: 34px;
+      height: 34px
+    }
+
+    .hero__orgs,
+    .foot__orgs {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--t3);
+      font-size: 12.5px;
+      letter-spacing: .02em;
+      color: rgba(244, 239, 223, .85)
+    }
+
+    .hero__orgs {
+      margin-bottom: 18px
+    }
+
+    .hero__orgs .partners img {
+      width: 46px;
+      height: 46px
+    }
+
+    .foot__orgs {
+      margin-top: 16px
+    }
+
+    @media (max-width: 760px) {
+      .partners--bar {
+        display: none
+      }
+    }
+
     .nav {
       display: flex;
       gap: 2px;
@@ -2614,6 +2672,61 @@
       pointer-events: none
     }
 
+    .zone__road {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-opacity: .72;
+      transition: stroke-opacity .35s, stroke-width .35s
+    }
+
+    .zone__flow {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 2 16;
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .zone:hover .zone__road,
+    .zone.is-on .zone__road {
+      stroke-opacity: 1;
+      filter: drop-shadow(0 0 7px rgba(255, 255, 255, .45))
+    }
+
+    .zone.is-on .zone__flow {
+      opacity: .9;
+      animation: flowdash 1.1s linear infinite
+    }
+
+    @keyframes flowdash {
+      to {
+        stroke-dashoffset: -18
+      }
+    }
+
+    .zone .mk {
+      transition: transform .3s
+    }
+
+    .zone.is-on .mk {
+      filter: drop-shadow(0 0 6px #fff)
+    }
+
+    .zone__tag {
+      font-size: 13px;
+      font-weight: 800;
+      pointer-events: none
+    }
+
+    .zone__pill {
+      font-size: 11.6px;
+      font-weight: 700;
+      pointer-events: none
+    }
+
     .plan__info {
       display: flex;
       flex-direction: column;
@@ -2984,6 +3097,14 @@
       font-family: var(--t3);
       font-size: 12px;
       color: var(--moss)
+    }
+
+    .press--solo {
+      grid-template-columns: 1fr
+    }
+
+    .press--solo .dl {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
     }
 
     .press__img {
@@ -3882,6 +4003,7 @@
           <span class="brand__name">จากผืนป่า สู่ชุมชน</span>
           <span class="brand__sub">Forest&nbsp;community&nbsp;2026</span>
         </span>
+        <span class="partners partners--bar"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Emblem_of_the_Royal_Forest_Department_(Thailand),_2023.svg?width=240" alt="ตราสัญลักษณ์กรมป่าไม้" title="กรมป่าไม้" referrerpolicy="no-referrer" onerror="this.style.display='none'"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Draft_Logo_MNRE.png?width=240" alt="ตราสัญลักษณ์กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" title="กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" referrerpolicy="no-referrer" onerror="this.style.display='none'"></span>
       </a>
       <nav class="nav" id="nav" aria-label="เมนูหลัก">
         <a href="#overview">ภาพรวม</a>
@@ -3921,6 +4043,7 @@
     </svg>
     <span class="scrollcue" aria-hidden="true">เลื่อนเพื่อชม</span>
     <div class="hero__body wrap wide">
+      <div class="hero__orgs reveal"><span class="partners "><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Emblem_of_the_Royal_Forest_Department_(Thailand),_2023.svg?width=240" alt="ตราสัญลักษณ์กรมป่าไม้" title="กรมป่าไม้" referrerpolicy="no-referrer" onerror="this.style.display='none'"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Draft_Logo_MNRE.png?width=240" alt="ตราสัญลักษณ์กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" title="กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" referrerpolicy="no-referrer" onerror="this.style.display='none'"></span><span>· กรมป่าไม้ <br>· กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม</span></div>
       <p class="eyebrow" style="color:var(--brass-light)"><span>นิทรรศการหมุนเวียน · พ.ศ. ๒๕๖๙</span></p>
       <h1 class="mask-host" id="heroTitle">
         <span class="mask"><span>จาก<span style="white-space:nowrap"> ผืนป่า </span>สู่ชุมชน</span></span>
@@ -4096,160 +4219,116 @@
     <div class="wrap wide">
       <div class="head-row">
         <div>
-          <p class="eyebrow">06 · แผนผังการจัดแสดง</p>
-          <h2 class="s-title mask-host"><span class="mask"><span>เดินตามเส้นทางแนะนำ 01 → 04</span></span></h2>
+          <p class="eyebrow">06 · แผนผังแสดงตำแหน่ง ประจำปี ๒๕๖๙</p>
+          <h2 class="s-title mask-host"><span class="mask"><span>เลือกถนน ดูเส้นทางและอำเภอ</span></span></h2>
         </div>
-        <p class="s-lead reveal" style="--d:110ms;max-width:40ch;margin-left:auto">เลือกหัวข้อบนผังหรือในรายการด้านขวา
-          เส้นประสีทองคือเส้นทางที่ออกแบบให้เรื่องเล่าต่อเนื่องกันทั้ง 4 หัวข้อ</p>
+        <p class="s-lead reveal" style="--d:110ms;max-width:40ch;margin-left:auto">แตะถนนหรือพื้นที่บนผัง หรือเลือกจากรายการด้านขวา
+          เส้นทางที่เลือกจะเรืองแสงพร้อมแสดงรายชื่ออำเภอในกลุ่มนั้น</p>
       </div>
       <div class="plan">
         <div class="plan__stage reveal">
-          <svg viewBox="0 0 1000 660" role="img" aria-label="แผนผังบริเวณนิทรรศการ">
+          <svg viewBox="0 0 1000 660" role="img" aria-label="แผนผังแสดงตำแหน่ง ประจำปี ๒๕๖๙ แสดงถนนและกลุ่มอำเภอ">
             <defs>
               <pattern id="hatch" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
                 <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(244,239,223,.16)" stroke-width="1.4" />
               </pattern>
-              <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#7fae5f" />
-                <stop offset="1" stop-color="#3d6b34" />
-              </linearGradient>
-              <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#2f8f74" />
-                <stop offset="1" stop-color="#14503f" />
-              </linearGradient>
-              <linearGradient id="gC" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#c2703f" />
-                <stop offset="1" stop-color="#8a4522" />
-              </linearGradient>
-              <linearGradient id="gD" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#d9b45e" />
-                <stop offset="1" stop-color="#9c7a22" />
-              </linearGradient>
-              <filter id="soft">
-                <feGaussianBlur stdDeviation="6" />
-              </filter>
+              <marker id="arw" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0 0L10 5L0 10z" fill="#0b0b0b" />
+              </marker>
             </defs>
 
-            <!-- hall shell -->
-            <rect x="18" y="18" width="964" height="624" rx="26" fill="#0e291c" stroke="rgba(244,239,223,.24)"
-              stroke-width="1.6" />
+            <!-- map shell -->
+            <rect x="18" y="18" width="964" height="624" rx="26" fill="#0e291c" stroke="rgba(244,239,223,.24)" stroke-width="1.6" />
             <rect x="34" y="34" width="932" height="592" rx="18" fill="url(#hatch)" opacity=".5" />
-            <text x="46" y="60" class="zone__sub" style="letter-spacing:.18em">ณ บริเวณสนามหน้าศาลากลางจังหวัดขอนแก่น
-              อำเภอเมืองขอนแก่น จังหวัดขอนแก่น
-              บูธแสดงนิทรรศการป่าไม้ฯ</text>
+            <text x="46" y="58" class="zone__sub" style="letter-spacing:.14em">แผนผังแสดงตำแหน่ง ประจำปี ๒๕๖๙ · บริเวณถนนศรีจันทร์ · ถนนเทพารักษ์ · ถนนดรุณสำราญ · ถนนประชาสำราญ</text>
 
-            <!-- recommended path -->
-            <path id="routePath"
-              d="M500 612 L500 520 L200 470 L200 300 L200 210 L470 210 L470 470 L740 470 L740 210 L880 210 L880 470 L500 520"
-              fill="none" stroke="#e0c473" stroke-width="2.4" stroke-dasharray="10 9" opacity=".85"
-              stroke-linecap="round" />
-            <path d="M500 612 L500 520 L200 470 L200 210" fill="none" stroke="transparent" />
+            <!-- context blocks (quiet) -->
+            <rect x="628" y="83" width="170" height="120" rx="10" fill="rgba(244,239,223,.05)" />
+            <rect x="628" y="366" width="180" height="150" rx="10" fill="rgba(244,239,223,.05)" />
+            <rect x="124" y="366" width="120" height="120" rx="10" fill="rgba(244,239,223,.05)" />
 
-            <!-- zones -->
-            <g class="zone" data-zone="t1" tabindex="0" role="button" aria-label="หัวข้อ 1 จากเมล็ดพันธุ์สู่ต้นกล้า">
-              <rect class="zone__rect" x="60" y="120" width="280" height="180" rx="14" fill="url(#gA)" opacity=".86" />
-              <text class="zone__label" x="80" y="152">หัวข้อ 1</text>
-              <text class="zone__sub" x="80" y="172">จากเมล็ดพันธุ์สู่ต้นกล้า</text>
-              <circle class="zone__ring" cx="200" cy="210" r="11" fill="none" stroke="#f4efdf" stroke-width="1.4" />
-              <text class="zone__sub" x="80" y="270">คลังเมล็ดพันธุ์ · เรือนเพาะกล้า · โต๊ะตรวจความงอก</text>
-            </g>
-            <g class="zone" data-zone="t2" tabindex="0" role="button" aria-label="หัวข้อ 2 จากต้นกล้าสู่ป่าใหญ่">
-              <rect class="zone__rect" x="360" y="120" width="280" height="180" rx="14" fill="url(#gB)" opacity=".86" />
-              <text class="zone__label" x="380" y="152">หัวข้อ 2</text>
-              <text class="zone__sub" x="380" y="172">จากต้นกล้าสู่ป่าใหญ่</text>
-              <circle class="zone__ring" cx="500" cy="210" r="11" fill="none" stroke="#f4efdf" stroke-width="1.4" />
-              <text class="zone__sub" x="380" y="270">ป่าจำลอง 3 มิติ · แปลงวัดคาร์บอน · ห้องไฟป่า</text>
-            </g>
-            <g class="zone" data-zone="t3" tabindex="0" role="button" aria-label="หัวข้อ 3 กินอยู่กับป่า">
-              <rect class="zone__rect" x="60" y="330" width="280" height="180" rx="14" fill="url(#gC)" opacity=".86" />
-              <text class="zone__label" x="80" y="362">หัวข้อ 3</text>
-              <text class="zone__sub" x="80" y="382">กินอยู่กับป่า ภูมิปัญญาท้องถิ่น</text>
-              <circle class="zone__ring" cx="200" cy="440" r="11" fill="none" stroke="#f4efdf" stroke-width="1.4" />
-              <text class="zone__sub" x="80" y="480">ครัวป่า · สมุนไพร · นิทรรศการเสียง ปู่ย่าตายาย</text>
-            </g>
-            <g class="zone" data-zone="t4" tabindex="0" role="button" aria-label="หัวข้อ 4 รักษ์ป่า สร้างรายได้">
-              <rect class="zone__rect" x="360" y="330" width="280" height="180" rx="14" fill="url(#gD)" opacity=".86" />
-              <text class="zone__label" x="380" y="362">หัวข้อ 4</text>
-              <text class="zone__sub" x="380" y="382">รักษ์ป่า สร้างรายได้ ป่าไม้ยั่งยืน</text>
-              <circle class="zone__ring" cx="500" cy="440" r="11" fill="none" stroke="#f4efdf" stroke-width="1.4" />
-              <text class="zone__sub" x="380" y="480">ตลาดวิสาหกิจชุมชน · บริการออกแบบบรรจุภัณฑ์</text>
+            <!-- F · ถนนเทพารักษ์ -->
+            <g class="zone" data-zone="F" tabindex="0" role="button" aria-label="กลุ่ม F ถนนเทพารักษ์">
+              <path d="M561 24 L477 295" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M561 24 L477 295" stroke="#22b35a" stroke-width="15" /><path class="zone__flow" d="M561 24 L477 295" />
+              <rect x="566" y="99" width="26" height="26" rx="5" fill="#22b35a" stroke="#fff" stroke-width="1.6" /><text x="579" y="117" text-anchor="middle" class="zone__tag" fill="#fff">F</text>
+              <rect x="603" y="98" width="118" height="28" rx="14" fill="#22b35a" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" /><text x="662.0" y="117" text-anchor="middle" class="zone__pill" fill="#fff">ถนนเทพารักษ์</text>
             </g>
 
-            <!-- stage & workshop -->
-            <g class="zone" data-zone="stage" tabindex="0" role="button" aria-label="เวทีกิจกรรม">
-              <rect class="zone__rect" x="660" y="120" width="280" height="180" rx="14" fill="#1d3f2f" opacity=".95"
-                stroke="rgba(244,239,223,.35)" />
-              <text class="zone__label" x="680" y="152">เวทีกลาง</text>
-              <text class="zone__sub" x="680" y="172">เสวนา · พิธีมอบรางวัล · โชว์ภูมิปัญญา</text>
-              <rect x="690" y="200" width="220" height="12" rx="6" fill="rgba(244,239,223,.24)" />
-              <rect x="700" y="226" width="200" height="10" rx="5" fill="rgba(244,239,223,.16)" />
-              <rect x="712" y="250" width="176" height="10" rx="5" fill="rgba(244,239,223,.1)" />
-            </g>
-            <g class="zone" data-zone="market" tabindex="0" role="button" aria-label="ตลาดผลิตภัณฑ์ชุมชน">
-              <rect class="zone__rect" x="660" y="330" width="130" height="180" rx="14" fill="#2a5440" opacity=".95"
-                stroke="rgba(244,239,223,.28)" />
-              <text class="zone__label" x="676" y="360">ตลาดป่าให้</text>
-              <text class="zone__sub" x="676" y="378">36 ร้าน</text>
-              <g fill="rgba(244,239,223,.3)">
-                <rect x="678" y="400" width="42" height="26" rx="4" />
-                <rect x="728" y="400" width="42" height="26" rx="4" />
-                <rect x="678" y="434" width="42" height="26" rx="4" />
-                <rect x="728" y="434" width="42" height="26" rx="4" />
-                <rect x="678" y="468" width="92" height="26" rx="4" />
-              </g>
-            </g>
-            <g class="zone" data-zone="workshop" tabindex="0" role="button" aria-label="มุมเวิร์กช็อป">
-              <rect class="zone__rect" x="810" y="330" width="130" height="180" rx="14" fill="#3f5f45" opacity=".95"
-                stroke="rgba(244,239,223,.28)" />
-              <text class="zone__label" x="826" y="360">เวิร์กช็อป</text>
-              <text class="zone__sub" x="826" y="378">ลงมือทำ 9 หลักสูตร</text>
-              <g stroke="rgba(244,239,223,.35)" stroke-width="2" fill="none">
-                <circle cx="846" cy="418" r="12" />
-                <circle cx="880" cy="450" r="16" />
-                <circle cx="846" cy="482" r="10" />
-              </g>
-            </g>
-            <g class="zone" data-zone="kids" tabindex="0" role="button" aria-label="มุมเด็กและครอบครัว">
-              <rect class="zone__rect" x="660" y="540" width="130" height="80" rx="14" fill="#5b4a2f" opacity=".95"
-                stroke="rgba(244,239,223,.26)" />
-              <text class="zone__label" x="676" y="572">มุมครอบครัว</text>
-              <text class="zone__sub" x="676" y="592">ปลูกกล้าในกระถาง · หนังสือนิทานป่า</text>
-            </g>
-            <g class="zone" data-zone="media" tabindex="0" role="button" aria-label="จุดถ่ายภาพและสื่อ">
-              <rect class="zone__rect" x="810" y="540" width="130" height="80" rx="14" fill="#453a5a" opacity=".95"
-                stroke="rgba(244,239,223,.26)" />
-              <text class="zone__label" x="826" y="572">Photo Spot</text>
-              <text class="zone__sub" x="826" y="592">qr นำชม · อัปเดตสื่อ</text>
+            <!-- G · ถนนศรีจันทร์ (ธนาคารกรุงเทพ) -->
+            <g class="zone" data-zone="G" tabindex="0" role="button" aria-label="กลุ่ม G ถนนศรีจันทร์ ธนาคารกรุงเทพ">
+              <path d="M513 309 L817 340" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M513 309 L817 340" stroke="#ec5fc0" stroke-width="15" /><path class="zone__flow" d="M513 309 L817 340" />
+              <rect x="561" y="290" width="228" height="28" rx="14" fill="#ec5fc0" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" /><text x="675.0" y="309" text-anchor="middle" class="zone__pill" fill="#fff">ถนนศรีจันทร์ (ธนาคารกรุงเทพ)</text>
+              <rect x="845" y="293" width="26" height="26" rx="5" fill="#ffffff" stroke="#fff" stroke-width="1.6" /><text x="858" y="311" text-anchor="middle" class="zone__tag" fill="#c2189a">G</text>
             </g>
 
-            <!-- entrance / services -->
-            <g class="zone" data-zone="entrance" tabindex="0" role="button" aria-label="ทางเข้าและจุดลงทะเบียน">
-              <rect class="zone__rect" x="330" y="540" width="300" height="80" rx="14" fill="#153a29" stroke="#e0c473"
-                stroke-width="1.6" opacity="1" />
-              <text class="zone__label" x="352" y="572" fill="#e0c473">ทางเข้า · จุดลงทะเบียนรับแผ่นนำชม</text>
-              <text class="zone__sub" x="352" y="592">เปิดให้เข้าชม 08.30–16.30 น. ·
-                สำหรับประชาชนทั่วไปและนักเรียนนักศึกษา</text>
+            <!-- E · ถนนศรีจันทร์ (ประตูเมือง) -->
+            <g class="zone" data-zone="E" tabindex="0" role="button" aria-label="กลุ่ม E อำเภอเมือง ถนนศรีจันทร์ ประตูเมือง">
+              <path d="M113 264 L407 299" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M113 264 L407 299" stroke="#ff8c42" stroke-width="15" /><path class="zone__flow" d="M113 264 L407 299" />
+              <rect x="174" y="296" width="208" height="28" rx="14" fill="#ff8c42" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" /><text x="278.0" y="315" text-anchor="middle" class="zone__pill" fill="#3a1a00">ถนนศรีจันทร์ (ประตูเมือง)</text>
+              <rect x="125" y="282" width="26" height="26" rx="5" fill="#ffffff" stroke="#fff" stroke-width="1.6" /><text x="138" y="300" text-anchor="middle" class="zone__tag" fill="#c75b12">E</text>
             </g>
-            <g class="zone" data-zone="service" tabindex="0" role="button" aria-label="จุดบริการ">
-              <rect class="zone__rect" x="60" y="540" width="250" height="80" rx="14" fill="#1b3527"
-                stroke="rgba(244,239,223,.22)" opacity="1" />
-              <text class="zone__label" x="78" y="572">จุดบริการผู้ชม</text>
-              <text class="zone__sub" x="78" y="592">พยาบาล · ห้องน้ำ · ที่นั่งพัก · ร้านค้า</text>
+
+            <!-- D · ถนนดรุณสำราญ -->
+            <g class="zone" data-zone="D" tabindex="0" role="button" aria-label="กลุ่ม D ถนนดรุณสำราญ">
+              <path d="M418 312 L317 411 L261 551" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M418 312 L317 411" stroke="#ffd24d" stroke-width="15" /><path class="zone__flow" d="M418 312 L317 411" />
+              <path class="zone__road" d="M317 411 L261 551" stroke="#6fe0ee" stroke-width="15" /><path class="zone__flow" d="M317 411 L261 551" />
+              <rect x="96" y="445" width="128" height="28" rx="14" fill="#ffd24d" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" /><text x="160.0" y="464" text-anchor="middle" class="zone__pill" fill="#4a3600">ถนนดรุณสำราญ</text>
+              <rect x="237" y="446" width="26" height="26" rx="5" fill="#ffffff" stroke="#fff" stroke-width="1.6" /><text x="250" y="464" text-anchor="middle" class="zone__tag" fill="#a87b00">D</text>
+              <path d="M314 415 L264 547" stroke="#0b0b0b" stroke-width="2.4" fill="none" marker-start="url(#arw)" marker-end="url(#arw)" />
             </g>
-            <g class="zone" data-zone="video" tabindex="0" role="button" aria-label="ห้องวีดีโอ">
-              <rect class="zone__rect" x="60" y="60" width="280" height="46" rx="10" fill="#22402f"
-                stroke="rgba(244,239,223,.22)" />
-              <text class="zone__label" x="78" y="90">ห้องฉายวีดีโอนำชม 8 นาที</text>
+
+            <!-- H · ถนนประชาสำราญ -->
+            <g class="zone" data-zone="H" tabindex="0" role="button" aria-label="กลุ่ม H ถนนประชาสำราญ">
+              <path d="M474 402 L418 564" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M474 402 L418 564" stroke="#ef2d2d" stroke-width="15" /><path class="zone__flow" d="M474 402 L418 564" />
+              <rect x="513" y="481" width="138" height="28" rx="14" fill="#ef2d2d" stroke="#fff" stroke-opacity=".75" stroke-width="1.4" /><text x="582.0" y="500" text-anchor="middle" class="zone__pill" fill="#fff">ถนนประชาสำราญ</text>
+              <rect x="688" y="482" width="26" height="26" rx="5" fill="#ffffff" stroke="#fff" stroke-width="1.6" /><text x="701" y="500" text-anchor="middle" class="zone__tag" fill="#c01515">H</text>
             </g>
-            <g class="zone" data-zone="library" tabindex="0" role="button" aria-label="คลังความรู้">
-              <rect class="zone__rect" x="360" y="60" width="280" height="46" rx="10" fill="#22402f"
-                stroke="rgba(244,239,223,.22)" />
-              <text class="zone__label" x="378" y="90">คลังความรู้ &amp; ดาวน์โหลดสื่อ</text>
+
+            <!-- public (cyan) -->
+            <g class="zone" data-zone="pub" tabindex="0" role="button" aria-label="พื้นที่ประชาชนทั่วไป">
+              <path d="M817 340 L936 352" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M817 340 L936 352" stroke="#6fe0ee" stroke-width="15" /><path class="zone__flow" d="M817 340 L936 352" />
+              <path d="M818 340 L933 352" stroke="#0b0b0b" stroke-width="2.4" fill="none" marker-start="url(#arw)" marker-end="url(#arw)" />
             </g>
-            <g class="zone" data-zone="press" tabindex="0" role="button" aria-label="มุมสื่อมวลชน">
-              <rect class="zone__rect" x="660" y="60" width="280" height="46" rx="10" fill="#22402f"
-                stroke="rgba(244,239,223,.22)" />
-              <text class="zone__label" x="678" y="90">มุมสื่อมวลชน · โฟโต้วอลล์</text>
+
+            <!-- C · เทศบาลนครขอนแก่น -->
+            <g class="zone" data-zone="C" tabindex="0" role="button" aria-label="C เทศบาลนครขอนแก่น">
+              <path d="M491 348 L474 402" stroke="transparent" stroke-width="34" fill="none" />
+              <path class="zone__road" d="M491 348 L474 402" stroke="#3562e8" stroke-width="17" /><path class="zone__flow" d="M491 348 L474 402" />
+              <rect x="517" y="347" width="26" height="26" rx="5" fill="#3562e8" stroke="#fff" stroke-width="1.6" /><text x="530" y="365" text-anchor="middle" class="zone__tag" fill="#fff">C</text>
+            </g>
+
+            <!-- A · ส่วนราชการ -->
+            <g class="zone" data-zone="A" tabindex="0" role="button" aria-label="A ส่วนราชการ">
+              <rect class="zone__rect" x="407" y="294" width="106" height="18" rx="4" fill="#5a3322" />
+              <rect class="zone__rect" x="446" y="312" width="45" height="38" rx="6" fill="#8a5a36" stroke="#fff" stroke-width="1.4" />
+              <circle class="zone__ring" cx="468" cy="331" r="11" fill="none" stroke="#f4efdf" stroke-width="1.4" />
+              <text x="468" y="337" text-anchor="middle" class="zone__tag" fill="#fff">A</text>
+            </g>
+
+            <!-- B-1 · สถานศึกษา/ภาคเอกชน -->
+            <g class="zone" data-zone="B1" tabindex="0" role="button" aria-label="B-1 สถานศึกษา ภาคเอกชน">
+              <rect class="zone__rect" x="342" y="253" width="59" height="32" rx="5" fill="#7c4dff" stroke="#fff" stroke-width="1.4" />
+              <text x="371.5" y="276" text-anchor="middle" class="zone__tag" fill="#fff">B-1</text>
+            </g>
+
+            <!-- B-2 · แปรอักษร -->
+            <g class="zone" data-zone="B2" tabindex="0" role="button" aria-label="B-2 แปรอักษร">
+              <rect class="zone__rect" x="410" y="255" width="44" height="30" rx="5" fill="#5a3322" stroke="#fff" stroke-width="1.4" />
+              <text x="432.0" y="276" text-anchor="middle" class="zone__tag" fill="#fff">B-2</text>
+            </g>
+
+            <!-- markers -->
+            <g class="zone" data-zone="water" tabindex="0" role="button" aria-label="จุดบริการน้ำดื่ม">
+              <g class="mk mk--wtr" transform="translate(513 77)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(463 205)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(198 243)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(526 278)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(354 363)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(888 380)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(303 528)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g><g class="mk mk--wtr" transform="translate(466 544)"><circle r="11" fill="#fff" stroke="#1d4fd7" stroke-width="1.6"/><path d="M0 -6c3 3.6 4.4 5.6 4.4 7.6a4.4 4.4 0 0 1-8.8 0c0-2 1.4-4 4.4-7.6z" fill="#1d4fd7"/></g>
+            </g>
+            <g class="zone" data-zone="sound" tabindex="0" role="button" aria-label="เครื่องเสียง">
+              <g class="mk mk--snd" transform="translate(520 33)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(540 173)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(383 235)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(107 255)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(509 395)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(303 393)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(218 530)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(398 553)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(683 352)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g><g class="mk mk--snd" transform="translate(930 328)"><circle r="11" fill="#0b0b0b" stroke="#fff" stroke-width="1.4"/><path d="M-5 -2h3l4-3.4v10.8l-4-3.4h-3z" fill="#fff"/><path d="M4.4 -3.2a4.6 4.6 0 0 1 0 6.4" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g>
             </g>
           </svg>
         </div>
@@ -4263,18 +4342,14 @@
         <figcaption>ผังฉบับรูปภาพที่อัปโหลดจากแผงจัดการสื่อ · แสดงแทนผังแบบคลิกพื้นที่เมื่อมีไฟล์</figcaption>
       </figure>
       <div class="plannote reveal">
-        <div><b>เวลาเดินชม</b>
-          <p>เส้นทางแนะนำ 01 → 04 ใช้เวลา 45–60 นาที หากมีเวลาจำกัดแนะนำเริ่มจากหัวข้อ 3 และ 4</p>
+        <div><b>สัญลักษณ์บนผัง</b>
+          <p>ไอคอนหยดน้ำ = จุดบริการน้ำดื่ม · ไอคอนลำโพง = เครื่องเสียง · เส้นสีฟ้าอ่อน = พื้นที่สำหรับประชาชนทั่วไป</p>
         </div>
-        <div><b>สิ่งอำนวยความสะดวก</b>
-          <p>ทางลาดตลอดเส้นทาง · รถเข็นยืมได้ที่จุดลงทะเบียน · ที่นั่งพักตลอดเส้นทาง · ห้องละหมาด · จุดบริการน้ำดื่ม</p>
+        <div><b>กลุ่มถนน</b>
+          <p>D ถนนดรุณสำราญ · E ถนนศรีจันทร์ (ประตูเมือง) · F ถนนเทพารักษ์ · G ถนนศรีจันทร์ (ธนาคารกรุงเทพ) · H ถนนประชาสำราญ</p>
         </div>
-        <div><b>ดาวน์โหลดผัง</b>
-          <p><a href="assets/factsheet.pdf" download>ผังพื้นที่และตารางกิจกรรม (PDF)</a> · <a href="assets/poster.png"
-              download>โปสเตอร์งาน (PNG)</a></p>
-        </div>
-        <div><b>นำชมอาสาพาชม</b>
-          <p>รอบ 10.00 / 13.00 / 16.00 น. รวมกลุ่ม 5 คนขึ้นไป ไม่ต้องจอง</p>
+        <div><b>พื้นที่เฉพาะ</b>
+          <p>A ส่วนราชการ · B-1 สถานศึกษา/ภาคเอกชน · B-2 แปรอักษร · C เทศบาลนครขอนแก่น</p>
         </div>
       </div>
     </div>
@@ -4287,11 +4362,8 @@
       <h2 class="s-title mask-host"><span class="mask"><span>ดาวน์โหลดสื่อไปใช้ต่อได้ทันที</span></span></h2>
       <p class="s-lead reveal">ไฟล์ต้นฉบับสำหรับสื่อมวลชน ทีมงาน และโรงเรียนที่พานักเรียนมาชม
         ระบุเครดิต “โครงการนิทรรศการจากผืนป่า สู่ชุมชน” เมื่อเผยแพร่</p>
-      <div class="press">
+      <div class="press press--solo">
         <div class="dl reveal" id="pressList"></div>
-        <figure class="press__img reveal" style="--d:140ms;margin:0">
-          <img src="assets/act-stage.jpg" alt="เวทีเสวนาสาธารณะในงานนิทรรศการ">
-        </figure>
       </div>
       <blockquote class="quotebox reveal">
         “ป่าไม่ได้วัดค่ากันที่เนื้อที่เพียงอย่างเดียว
@@ -4322,6 +4394,7 @@
           <p style="font-size:14px;max-width:34ch;margin-top:14px">นิทรรศการหมุนเวียน 4 หัวเรื่อง จัดแสดงพร้อมวีดีโอ
             ผลงาน
             กิจกรรม และรางวัล เพื่อถ่ายทอดเส้นทางจากผืนป่าสู่เศรษฐกิจชุมชน</p>
+          <div class="foot__orgs"><span class="partners "><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Emblem_of_the_Royal_Forest_Department_(Thailand),_2023.svg?width=240" alt="ตราสัญลักษณ์กรมป่าไม้" title="กรมป่าไม้" referrerpolicy="no-referrer" onerror="this.style.display='none'"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Draft_Logo_MNRE.png?width=240" alt="ตราสัญลักษณ์กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" title="กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม" referrerpolicy="no-referrer" onerror="this.style.display='none'"></span><span>· กรมป่าไม้ <br>· กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม</span></div>
           <div style="display:flex;gap:8px;margin-top:16px" class="chip chip--light"><span>◷ วันที่ 29 พฤศจิกายน – 10
               ธันวาคม 2569</span>
           </div>
@@ -4374,16 +4447,14 @@
         <h3>แผงจัดการสื่อประชาสัมพันธ์</h3>
         <span class="chip" id="apiState" style="font-size:11.5px">โหมดสาธิต · ข้อมูลตัวอย่าง</span>
         <button class="btn btn--ghost btn--sm" id="refreshDataBtn" type="button"
-          style="font-size:11.5px;padding:5px 10px" title="โหลดข้อมูลล่าสุดจาก Google Sheets">↻
-          โหลดข้อมูลล่าสุด</button>
+          style="font-size:20px;padding:5px 10px" title="โหลดข้อมูลล่าสุด">↻</button>
         <button id="adminClose" aria-label="ปิดแผง">×</button>
       </div>
 
       <div id="loginPane" class="modal__body" style="padding:clamp(22px,4vw,54px)">
         <div style="max-width:540px;margin-inline:auto;display:grid;gap:14px">
           <h4 style="font-family:var(--t1);font-size:24px">เข้าสู่ระบบเพื่ออัปโหลดสื่อ</h4>
-          <p style="font-size:14px;color:rgba(15,29,22,.7)">กำหนดรหัสผ่านได้เองในค่า <b>ADMIN_PASS</b> ของไฟล์ code.gs
-            หรือใน Script Properties ของ Apps Script</p>
+          <p style="font-size:14px;color:rgba(15,29,22,.7)"><b>ADMIN_PASS</b></p>
           <label class="fld" style="text-transform:none;letter-spacing:normal">
             <span style="text-transform:uppercase">รหัสผ่านผู้ดูแล</span>
             <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
@@ -4392,7 +4463,7 @@
             <button class="btn" id="loginBtn">เข้าระบบ</button>
             <span id="loginMsg" style="font-size:13px;color:var(--clay)"></span>
           </div>
-          <div class="note">Google Apps Script</div>
+          <div class="note">สำนักจัดการทรัพยากรป่าไม้ที่ 7 (ขอนแก่น) กรมป่าไม้ กระทรวงธรรมชาติและสิ่งแวดล้อม 2026</div>
         </div>
       </div>
 
@@ -4892,6 +4963,8 @@
           id: 't1', no: '01', zone: 'A', title: 'จากเมล็ดพันธุ์สู่ต้นกล้า',
           en: 'From Seed to Seedling',
           img: 'topic-1-seed-poster.jpg',
+          overviewImg: 'topic-1-seed-poster.jpg',   // รูปในหัวข้อ “ภาพรวม 4 หัวข้อ”
+          detailImg: 'topic-1-seed-poster.jpg',     // รูปในหัวข้อ “รายละเอียดหัวข้อ”
           lead: 'จุดเริ่มต้นของทุกคุณค่าอยู่ที่เมล็ดพันธุ์เดียว ห้องนี้แสดงงานรวบรวม คัดเลือก และเพาะขยายพันธุ์ไม้มีค่า พร้อมเทคโนโลยีติดตามคุณภาพเมล็ดที่ทีมวิจัยและพัฒนา ร่วมกับชุมชน',
           tagline: 'ทุกผืนป่า เริ่มต้นจากเมล็ดพันธุ์ไม้เล็ก ๆ',
           points: ['คัดเลือกเมล็ดพันธุ์ไม้ท้องถิ่น', 'เพาะเมล็ดและอนุบาลกล้าไม้', 'ดูแลให้เติบโตอย่างแข็งแรง', 'เตรียมกล้าไม้สู่การฟื้นฟูป่า'],
@@ -4901,6 +4974,8 @@
           id: 't2', no: '02', zone: 'B', title: 'จากต้นกล้าสู่ป่าใหญ่',
           en: 'From Seedling to Forest',
           img: 'topic-2-forest-poster.jpg',
+          overviewImg: 'topic-2-forest-poster.jpg',   // รูปในหัวข้อ “ภาพรวม 4 หัวข้อ”
+          detailImg: 'topic-2-forest-poster.jpg',     // รูปในหัวข้อ “รายละเอียดหัวข้อ”
           lead: 'เมื่อกล้าเล็กๆ กลับคืนสู่ผืนดิน มันกลายเป็นระบบนิเวศที่เลี้ยงชีวิต ห้องนี้เล่าการฟื้นฟูป่าชุมชน การวัดผลด้วยข้อมูล และการปกป้องพื้นที่จากไฟป่า',
           tagline: 'ร่วมปลูก ร่วมดูแล สร้างผืนป่าให้เติบโต',
           points: ['ปลูกเสริมและฟื้นฟูพื้นที่ป่า', 'ดูแลรักษาและป้องกันไฟป่า', 'เพิ่มความหลากหลายทางชีวภาพ', 'สร้างสมดุลให้ระบบนิเวศ'],
@@ -4910,6 +4985,8 @@
           id: 't3', no: '03', zone: 'C', title: 'กินอยู่กับป่า ภูมิปัญญาท้องถิ่น',
           en: 'Living with the Forest',
           img: 'topic-3-wisdom-poster.jpg',
+          overviewImg: 'topic-3-wisdom-poster.jpg',   // รูปในหัวข้อ “ภาพรวม 4 หัวข้อ”
+          detailImg: 'topic-3-wisdom-poster.jpg',     // รูปในหัวข้อ “รายละเอียดหัวข้อ”
           lead: 'ป่าคือซูเปอร์มาร์เก็ตของหมู่บ้าน ห้องนี้ชวนชิม (ด้วยตาและจมูก) อาหารป่า สมุนไพร และกติกาการใช้สอยที่บรรพบุรุษทดลองมาหลายชั่วอายุคน',
           tagline: 'ป่าคือแหล่งอาหาร แหล่งเรียนรู้ และรากฐานของวิถีชุมชน',
           points: ['แหล่งอาหารและสมุนไพรธรรมชาติ', 'เห็ดป่า หน่อไม้ ผักหวาน และของป่า', 'สืบสานภูมิปัญญาและวิถีชีวิตชุมชน', 'ใช้ประโยชน์อย่างรู้คุณค่าและไม่ทำลายป่า'],
@@ -4919,6 +4996,8 @@
           id: 't4', no: '04', zone: 'D', title: 'รักษ์ป่า สร้างรายได้ ป่าไม้ยั่งยืน',
           en: 'Protecting Forest, Building Income',
           img: 'topic-4-value-poster.jpg',
+          overviewImg: 'topic-4-value-poster.jpg',   // รูปในหัวข้อ “ภาพรวม 4 หัวข้อ”
+          detailImg: 'topic-4-value-poster.jpg',     // รูปในหัวข้อ “รายละเอียดหัวข้อ”
           lead: 'ปลายทางที่ทำให้วงจรหมุนต่อไปได้ คือรายได้ที่ทำให้คนอยากรักษาป่า ห้องนี้รวมผลิตภัณฑ์ชุมชน งานออกแบบบรรจุภัณฑ์ และโมเดลธุรกิจที่แบ่งกำไรกลับเข้ากองทุนดูแลป่า',
           tagline: 'ป่าอยู่ได้ ชุมชนอยู่ดี สิ่งแวดล้อมยั่งยืน',
           points: ['สร้างรายได้จากผลิตภัณฑ์และของป่า', 'ส่งเสริมการท่องเที่ยวเชิงอนุรักษ์', 'เพิ่มศักยภาพการกักเก็บคาร์บอน', 'สร้างโอกาสทางเศรษฐกิจจากคาร์บอนเครดิต'],
@@ -5002,7 +5081,7 @@
         },
         {
           id: 'v07', title: 'Behind the setup — ติดตั้งนิทรรศการ 3 วันก่อนเปิด', topic: 'all', kind: 'file', src: '',
-          desc: 'คลิปเบื้องหลัง (ตัวอย่างช่องว่าง) อัปโหลดไฟล์ MP4 ของคุณเองผ่านแผงจัดการสื่อ', credit: 'งานผลิต', thumb: 'act-stage.jpg'
+          desc: 'คลิปเบื้องหลัง (ตัวอย่างช่องว่าง) อัปโหลดไฟล์ MP4 ของคุณเองผ่านแผงจัดการสื่อ', credit: 'งานผลิต', thumb: 'hero-forest.jpg'
         }
       ],
       events: [
@@ -5047,7 +5126,7 @@
         },
         {
           id: 'a02', title: 'เวทีเสวนา “ป่าที่ให้ชีวิต”', date: '2026-11-22', place: 'เวทีกลาง', topic: 't2',
-          desc: 'กรรมการป่าชุมชน 5 พื้นที่แลกเปลี่ยนกติกาที่ใช้จริง', imgs: ['act-stage.jpg']
+          desc: 'กรรมการป่าชุมชน 5 พื้นที่แลกเปลี่ยนกติกาที่ใช้จริง', imgs: ['topic-2-forest.jpg']
         },
         {
           id: 'a03', title: 'ห้องเรียนเมล็ดพันธุ์', date: '2026-11-20', place: 'พื้นที่จัดแสดงหัวข้อ 1', topic: 't1',
@@ -5067,7 +5146,7 @@
         },
         {
           id: 'a07', title: 'เดินชมนิทรรศการรอบสื่อมวลชน', date: '2026-11-18', place: 'ทุกหัวข้อ', topic: 'all',
-          desc: 'คณะทำงานอธิบายแนวคิดการจัดแสดง 4 หัวข้อ', imgs: ['act-stage.jpg', 'work-herbal.jpg']
+          desc: 'คณะทำงานอธิบายแนวคิดการจัดแสดง 4 หัวข้อ', imgs: ['work-herbal.jpg']
         },
         {
           id: 'a08', title: 'คลินิกออกแบบบรรจุภัณฑ์', date: '2026-11-23', place: 'มุมเวิร์กช็อป', topic: 't4',
@@ -5107,7 +5186,7 @@
     /* ============================================================
        STATE · HELPERS · API LAYER
        ============================================================ */
-    const RANGE = { start: '2026-11-29', end: '2026-12-10' };   // ช่วงวันจัดแสดงจริง (แก้ไขใน Settings ได้)
+    const RANGE = { start: '2026-11-28', end: '2026-12-10' };   // ช่วงวันจัดแสดงจริง (แก้ไขใน Settings ได้)
     const TH_MONTH = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
     const TH_MONTH_S = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
     const TH_DOW = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
@@ -5130,8 +5209,7 @@
       'work-bamboo.jpg': 'https://images.unsplash.com/photo-1584589167171-541ce45f1eea?auto=format&fit=crop&w=800&q=80',
       'work-honey.jpg': 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=80',
       'work-herbal.jpg': 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80',
-      'act-workshop.jpg': 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80',
-      'act-stage.jpg': 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80'
+      'act-workshop.jpg': 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80'
     };
 
     function asset(p) {
@@ -5193,7 +5271,7 @@
     /* ข้อมูลที่ใช้จริง = DEMO ∪ สิ่งที่เก็บไว้ (backend หรือ localStorage) */
     let DATA = JSON.parse(JSON.stringify(DEMO));
     DATA.carbonStudies = JSON.parse(JSON.stringify(CARBON_STUDY));
-    let STATE = { backend: false, token: '', editing: {}, cal: { y: 2026, m: 10, sel: iso(new Date()) }, video: 0, filter: 'all', zone: 't1' };
+    let STATE = { backend: false, token: '', editing: {}, cal: { y: 2026, m: 10, sel: iso(new Date()) }, video: 0, filter: 'all', zone: 'F' };
 
     function carbonImgSrc(img) {
       const s = String(img || '').trim();
@@ -5232,6 +5310,10 @@
           })
           : topic;
       });
+      DATA.topics.forEach(tp => {
+        tp.overviewImg = tp.overviewImg || tp.img || '';
+        tp.detailImg = tp.detailImg || tp.img || '';
+      });
       delete st.topics;
       delete st.carbonStudies;
     }
@@ -5243,13 +5325,15 @@
       <label class="fld"><span>ชื่อหัวข้อ</span><input id="tp_${t.id}_title" value="${esc(t.title)}"></label>
       <label class="fld"><span>ชื่อภาษาอังกฤษ</span><input id="tp_${t.id}_en" value="${esc(t.en || '')}"></label>
       <label class="fld"><span>เลขหัวข้อ</span><input id="tp_${t.id}_no" value="${esc(t.no || '')}" placeholder="01"></label>
-      <label class="fld"><span>ภาพประกอบ (ลิงก์หรือชื่อไฟล์)</span><input id="tp_${t.id}_img" value="${esc(t.img || '')}"></label>
-      <label class="fld"><span>หรือเลือกไฟล์ภาพจากเครื่อง · ไม่เกิน 10MB</span><input type="file" id="tp_${t.id}_file" accept="image/*" style="font-size:12.5px;padding-top:7px"></label>
+      <label class="fld"><span>รูปที่ 1 · ส่วน “ภาพรวม 4 หัวข้อ” (ลิงก์หรือชื่อไฟล์)</span><input id="tp_${t.id}_overviewImg" value="${esc(t.overviewImg || t.img || '')}"></label>
+      <label class="fld"><span>อัปโหลดรูปส่วนภาพรวม · ไม่เกิน 10MB</span><input type="file" id="tp_${t.id}_overviewFile" accept="image/*" style="font-size:12.5px;padding-top:7px"></label>
+      <label class="fld"><span>รูปที่ 2 · ส่วน “รายละเอียดหัวข้อ” (ลิงก์หรือชื่อไฟล์)</span><input id="tp_${t.id}_detailImg" value="${esc(t.detailImg || t.img || '')}"></label>
+      <label class="fld"><span>อัปโหลดรูปส่วนรายละเอียด · ไม่เกิน 10MB</span><input type="file" id="tp_${t.id}_detailFile" accept="image/*" style="font-size:12.5px;padding-top:7px"></label>
       <label class="fld full"><span>คำโปรยภาพรวมหัวข้อ</span><textarea id="tp_${t.id}_lead">${esc(t.lead || '')}</textarea></label>
       <label class="fld full"><span>จุดเน้นของหัวข้อ (บรรทัดละ 1 ข้อ)</span><textarea id="tp_${t.id}_points" rows="4">${esc((t.points || []).join('\n'))}</textarea></label>
       <label class="fld full"><span>ตัวเลขเด่น (ค่า|คำกำกับ คั่นด้วย ;)</span><input id="tp_${t.id}_stats" value="${esc((t.stats || []).map(x => x.v + '|' + x.l).join(' ; '))}"></label>
     </div>
-    <div class="thumbrow"><img src="${asset(t.img)}" alt=""><small>ภาพปัจจุบันของหัวข้อย่อยนี้ · เปลี่ยนได้ทั้งใส่ลิงก์และเลือกไฟล์</small></div>
+    <div class="thumbrow"><img src="${asset(t.overviewImg || t.img)}" alt=""><small>ภาพส่วนภาพรวม</small><img src="${asset(t.detailImg || t.img)}" alt="" style="margin-left:14px"><small>ภาพส่วนรายละเอียด · แก้แยกกันได้ทั้งใส่ลิงก์และเลือกไฟล์</small></div>
   </div>`).join('');
       const pm = $('#p_map'); if (pm) pm.value = (DATA.settings && DATA.settings.mapimg) || '';
       const clearMap = $('#p_map_clear'); if (clearMap) clearMap.checked = false;
@@ -5330,7 +5414,7 @@
     /* ---------- ภาพ fallback เมื่อไฟล์หาย ---------- */
     function wireImgFallbacks(root) {
       $$('img', root || document).forEach(img => {
-        if (img._fb) return; img._fb = 1;
+        if (img._fb || img.closest('.partners')) return; img._fb = 1;
         img.addEventListener('error', () => {
           const rawSrc = img.getAttribute('src') || '';
           const fileName = String(rawSrc).replace(/^.*[\\\/]/, '');
@@ -5401,7 +5485,7 @@
           <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1 5h13M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg>
         </a>
       </div>
-      <div class="qcard__img"><img src="${asset(t.img)}" alt="โปสเตอร์หัวข้อ ${t.no} ${esc(t.title)}" loading="lazy"></div>
+      <div class="qcard__img"><img src="${asset(t.overviewImg || t.img)}" alt="โปสเตอร์หัวข้อ ${t.no} ${esc(t.title)}" loading="lazy"></div>
     </article>`).join('');
 
       $('#chainRow').innerHTML = DATA.chain.map(c => `
@@ -5420,7 +5504,7 @@
       $('#panels').innerHTML = DATA.topics.map(t => `
     <article class="panel reveal" id="panel-${t.id}" style="--accent:${TOPIC_COLOR[t.id]}">
       <div class="panel__top">
-        <div class="panel__img"><img src="${asset(t.img)}" alt="โปสเตอร์หัวข้อ ${t.no} ${esc(t.title)}" loading="lazy"></div>
+        <div class="panel__img"><img src="${asset(t.detailImg || t.img)}" alt="โปสเตอร์หัวข้อ ${t.no} ${esc(t.title)}" loading="lazy"></div>
         <header class="panel__head">
           <span class="panel__no">${t.no}</span>
           <h3>${esc(t.title)}</h3>
@@ -5603,7 +5687,22 @@
     /* ============================================================
        RENDER · CALENDAR
        ============================================================ */
-    function eventsOn(d) { return DATA.events.filter(e => e.date === d).sort((a, b) => (a.time || '').localeCompare(b.time || '')); }
+    const SEEDLING = { start: '2026-11-28', end: '2026-12-10' };   // กิจกรรมแจกกล้าไม้ทุกวัน 28 พ.ย. – 10 ธ.ค. 2569
+    function eventsOn(d) {
+      const normal = DATA.events.filter(e => e.date === d);
+      if (d >= SEEDLING.start && d <= SEEDLING.end) {
+        normal.push({
+          id: 'daily-seedling-' + d,
+          date: d,
+          time: '08:30', time2: '16:30',
+          title: 'กิจกรรมแจกกล้าไม้',
+          place: 'จุดแจกกล้าไม้',
+          topic: 'all', kind: 'กิจกรรมประชาสัมพันธ์',
+          desc: 'กิจกรรมแจกกล้าไม้แก่ผู้เข้าชมทุกวัน ตั้งแต่วันที่ 28 พฤศจิกายน – 10 ธันวาคม 2569 (แจกจนกว่ากล้าไม้จะหมด)'
+        });
+      }
+      return normal.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+    }
     function renderCalendar() {
       const { y, m } = STATE.cal;
       $('#calMonth').textContent = TH_MONTH[m] + ' ' + be(y);
@@ -5632,8 +5731,12 @@
       }
       $('#calGrid').innerHTML = cells;
 
-      const total = DATA.events.filter(e => e.date >= exhStart && e.date <= exhEnd).length;
-      $('#calSummary').textContent = `${total} รายการในช่วงจัดแสดง · ${DATA.events.length} รายการทั้งหมด`;
+      let seedDays = 0;
+      for (let dd = new Date(SEEDLING.start + 'T00:00:00'); iso(dd) <= SEEDLING.end; dd.setDate(dd.getDate() + 1)) {
+        const k = iso(dd); if (k >= exhStart && k <= exhEnd) seedDays++;
+      }
+      const total = DATA.events.filter(e => e.date >= exhStart && e.date <= exhEnd).length + seedDays;
+      $('#calSummary').textContent = `${total} รายการในช่วงจัดแสดง · ${DATA.events.length + seedDays} รายการทั้งหมด`;
       renderAgenda(STATE.cal.sel);
     }
     function renderAgenda(day) {
@@ -5657,73 +5760,74 @@
        RENDER · FLOOR PLAN
        ============================================================ */
     const ZONES = {
-      t1: {
-          name: 'หัวข้อ 1 · จากเมล็ดพันธุ์สู่ต้นกล้า', color: 'url(#gA)', hex: '#7fae5f',
-          desc: 'จุดเริ่มต้นของเรื่องเล่า แสดงวงจรการเก็บรวบรวมเมล็ดพันธุ์ การตรวจคุณภาพ และการเพาะกล้าที่ชุมชนเป็นเจ้าของ',
-        items: ['คลังเมล็ดพันธุ์ดิจิทัล (จอทัช 55")', 'โต๊ะตรวจความงอก 6 ที่ลงมือทำได้', 'เรือนเพาะกล้าจำลอง + กล้าไม้จริง 42 ชนิด', 'หูฟังเรื่องเล่าจากคนเก็บเมล็ด'],
-        meta: ['พื้นที่ 96 ตร.ม.', 'เหมาะ: ทุกระดับ', 'ผลงาน 3 รายการ']
+      F: {
+        name: 'กลุ่ม F · ถนนเทพารักษ์', hex: '#22b35a',
+        desc: 'เส้นทางสีเขียว เริ่มจากถนนเทพารักษ์ไปบรรจบแยกส่วนราชการ ประกอบด้วย 11 อำเภอ',
+        items: ['F-1 อำเภอกระนวน', 'F-2 อำเภอมัญจาคีรี', 'F-3 อำเภอเขาสวนกวาง', 'F-4 อำเภอเวียงเก่า', 'F-5 อำเภอภูเวียง', 'F-6 อำเภอแวงน้อย', 'F-7 อำเภอภูผาม่าน', 'F-8 อำเภอชุมแพ', 'F-9 อำเภอหนองนาคำ', 'F-10 อำเภอแวงใหญ่', 'F-11 อำเภอสีชมพู'],
+        meta: ['11 อำเภอ', 'ถนนเทพารักษ์']
       },
-      t2: {
-          name: 'หัวข้อ 2 · จากต้นกล้าสู่ป่าใหญ่', color: 'url(#gB)', hex: '#2f8f74',
-        desc: 'ป่าจำลองขนาดจริงพร้อมข้อมูลการฟื้นฟูป่าชุมชน แสดงตัวเลขที่วัดได้ ไม่ใช่เพียงภาพสวย',
-        items: ['แผนที่ฟื้นฟูป่า 3 มิติ', 'แปลงตัวอย่างถาวร + ตารางคำนวณคาร์บอน', 'ห้องจำลองสถานการณ์ไฟป่า', 'เสียงป่า 8 ระบบนิเวศ'],
-        meta: ['พื้นที่ 110 ตร.ม.', 'เหมาะ: ครอบครัว / นักเรียน', 'ผลงาน 3 รายการ']
+      G: {
+        name: 'กลุ่ม G · ถนนศรีจันทร์ (ธนาคารกรุงเทพ)', hex: '#ec5fc0',
+        desc: 'เส้นทางสีชมพู จากแยกส่วนราชการไปทางทิศตะวันออกตามถนนศรีจันทร์ฝั่งธนาคารกรุงเทพ ประกอบด้วย 5 อำเภอ',
+        items: ['G-1 อำเภอบ้านแฮด', 'G-2 อำเภอบ้านไผ่', 'G-3 อำเภอน้ำพอง', 'G-4 อำเภอหนองเรือ', 'G-5 อำเภออุบลรัตน์'],
+        meta: ['5 อำเภอ', 'ถนนศรีจันทร์']
       },
-      t3: {
-          name: 'หัวข้อ 3 · กินอยู่กับป่า ภูมิปัญญาท้องถิ่น', color: 'url(#gC)', hex: '#c2703f',
-        desc: 'ครัวป่าและคลังภูมิปัญญา ที่ทำให้เห็นว่าป่าคือซุปเปอร์มาร์เก็ตของหมู่บ้านมาหลายชั่วอายุคน',
-        items: ['สาธิตเมนูอาหารป่าตามฤดูกาล', 'ชุดสมุนไพรและลูกประคบ 58 ชนิด', 'คลังเสียงผู้เฒ่า 120 เรื่อง', 'โต๊ะภาพอาหารป่า 96 ชนิด'],
-        meta: ['พื้นที่ 88 ตร.ม.', 'เหมาะ: ทั่วไป', 'ผลงาน 3 รายการ']
+      E: {
+        name: 'กลุ่ม E · อำเภอเมือง (ถนนศรีจันทร์ ประตูเมือง)', hex: '#ff8c42',
+        desc: 'เส้นทางสีส้ม ถนนศรีจันทร์ฝั่งประตูเมือง สำหรับขบวนอำเภอเมือง',
+        items: ['E อำเภอเมือง'],
+        meta: ['1 อำเภอ', 'ถนนศรีจันทร์ (ประตูเมือง)']
       },
-      t4: {
-          name: 'หัวข้อ 4 · รักษ์ป่า สร้างรายได้ ป่าไม้ยั่งยืน', color: 'url(#gD)', hex: '#d9b45e',
-        desc: 'ปลายทางของห่วงโซ่มูลค่า แสดงผลิตภัณฑ์ชุมชน ช่องทางตลาด และกลไกที่รายได้ส่วนหนึ่งย้อนกลับมาดูแลป่า',
-        items: ['ตลาดวิสาหกิจชุมชน 36 ร้าน', 'คลินิกออกแบบบรรจุภัณฑ์', 'มาตรฐานตรวจสอบย้อนกลับ', 'กองทุนดูแลป่าจากส่วนแบ่ง 3%'],
-        meta: ['พื้นที่ 120 ตร.ม.', 'เหมาะ: ผู้ซื้อ / พันธมิตร', 'ผลงาน 3 รายการ']
+      D: {
+        name: 'กลุ่ม D · ถนนดรุณสำราญ', hex: '#ffd24d',
+        desc: 'เส้นทางสีเหลือง จากแยกส่วนราชการลงมาทางถนนดรุณสำราญ ประกอบด้วย 5 อำเภอ ช่วงปลายทางสีฟ้าอ่อนเป็นพื้นที่ประชาชนทั่วไป',
+        items: ['D-1 อำเภอชนบท', 'D-2 อำเภอหนองสองห้อง', 'D-3 อำเภอเปือยน้อย', 'D-4 อำเภอโคกโพธิ์ไชย', 'D-5 อำเภอพระยืน'],
+        meta: ['5 อำเภอ', 'ถนนดรุณสำราญ']
       },
-      stage: {
-        name: 'เวทีกลาง', hex: '#8fa89a', desc: 'พื้นที่เสวนา พิธีมอบรางวัล และการแสดงภูมิปัญญาจากชุมชน',
-        items: ['จอ LED 6×3.4 ม.', 'เก้าอี้ 200 ที่', 'ล่ามภาษามือ 2 ช่วง'], meta: ['ความจุ 200 คน', 'กิจกรรม 21 รายการ']
+      H: {
+        name: 'กลุ่ม H · ถนนประชาสำราญ', hex: '#ef2d2d',
+        desc: 'เส้นทางสีแดง จากหน้าเทศบาลนครขอนแก่นไปตามถนนประชาสำราญ ประกอบด้วย 4 อำเภอ',
+        items: ['H-1 อำเภอบ้านฝาง', 'H-2 อำเภอโนนศิลา', 'H-3 อำเภอซำสูง', 'H-4 อำเภอพล'],
+        meta: ['4 อำเภอ', 'ถนนประชาสำราญ']
       },
-      market: {
-        name: 'ตลาดป่าให้', hex: '#d9b45e', desc: 'พื้นที่จำหน่ายผลิตภัณฑ์ชุมชนตลอดช่วงจัดแสดง รายได้สู่ผู้ผลิตโดยตรง',
-        items: ['ร้านน้ำผึ้งป่า', 'ร้านงานสานไผ่', 'ร้านสมุนไพร', 'ร้านกาแฟใต้ร่มไม้'], meta: ['36 ร้าน', '09.00–18.00 น.']
+      A: {
+        name: 'A · ส่วนราชการ', hex: '#8a5a36',
+        desc: 'จุดรวมของส่วนราชการ ตั้งอยู่ที่แยกกลางผัง เป็นจุดบรรจบของถนนทุกสาย',
+        items: ['ส่วนราชการ'], meta: ['จุดบรรจบทุกเส้นทาง']
       },
-      workshop: {
-        name: 'มุมเวิร์กช็อป', hex: '#7fae5f', desc: 'ห้องลงมือทำ 9 หลักสูตร ต้องจองล่วงหน้าผ่านคิวอาร์ที่จุดลงทะเบียน',
-        items: ['สานไผ่พื้นฐาน / ระดับกลาง', 'ลูกประคบสมุนไพร', 'กระดาษใยเปลือกไม้', 'บรรจุภัณฑ์ลดต้นทุน'], meta: ['30 ที่นั่ง/รอบ', '9 หลักสูตร']
+      B1: {
+        name: 'B-1 · สถานศึกษา / ภาคเอกชน', hex: '#7c4dff',
+        desc: 'ตำแหน่งของสถานศึกษาและภาคเอกชน ตั้งอยู่ริมถนนศรีจันทร์ (ประตูเมือง)',
+        items: ['สถานศึกษา', 'ภาคเอกชน'], meta: ['ริมถนนศรีจันทร์']
       },
-      kids: {
-        name: 'มุมครอบครัว', hex: '#c8a86a', desc: 'พื้นที่สำหรับเด็ก ปลูกกล้าในกระถางกลับบ้านและมุมหนังสือนิทานป่า',
-        items: ['กระถางกล้า 1 ต้น/ครอบครัว', 'หนังสือนิทานป่า 40 เล่ม', 'บอร์ดตามหาสัตว์ป่า'], meta: ['เหมาะ 4–12 ปี', 'ฟรี']
+      B2: {
+        name: 'B-2 · แปรอักษร', hex: '#5a3322',
+        desc: 'ตำแหน่งแปรอักษร อยู่ติดกับกลุ่ม B-1 ด้านทิศตะวันตกของแยกส่วนราชการ',
+        items: ['แปรอักษร'], meta: ['ติดกลุ่ม B-1']
       },
-      media: {
-        name: 'Photo Spot & จุดสื่อ', hex: '#9b8fb5', desc: 'ฉากถ่ายภาพรณรงค์และจุดอัปเดตสื่อกิจกรรมรายวัน',
-        items: ['ฉากถ่ายภาพ 4 หัวข้อ', 'QR รับไฟล์ภาพกลับบ้าน', 'จุดถ่ายทอดสด'], meta: ['อัปเดตวันละ 3 ครั้ง']
+      C: {
+        name: 'C · เทศบาลนครขอนแก่น', hex: '#3562e8',
+        desc: 'ตำแหน่งเทศบาลนครขอนแก่น ต่อจากแยกส่วนราชการ ก่อนเข้าสู่ถนนประชาสำราญ',
+        items: ['เทศบาลนครขอนแก่น'], meta: ['ต่อกับกลุ่ม H']
       },
-      entrance: {
-        name: 'ทางเข้า · จุดลงทะเบียน', hex: '#e0c473', desc: 'รับแผ่นนำชมกระดาษ/ดิจิทัล และอุปกรณ์นำชมเสียง',
-        items: ['แผ่นนำชม 4 ภาษา', 'เครื่องฟังเสียงนำชม', 'จุดบริการผู้ใช้ออกแบบ universal design'], meta: ['เปิด 09.00 น.', 'จอดรถฟรี 2 ชม.']
+      pub: {
+        name: 'ประชาชนทั่วไป', hex: '#6fe0ee',
+        desc: 'ช่วงสีฟ้าอ่อนที่ปลายถนนศรีจันทร์ฝั่งตะวันออก และปลายถนนดรุณสำราญ เป็นพื้นที่สำหรับประชาชนทั่วไป',
+        items: ['ปลายถนนศรีจันทร์ (ฝั่งตะวันออก)', 'ปลายถนนดรุณสำราญ'], meta: ['2 ช่วง']
       },
-      service: {
-        name: 'จุดบริการผู้ชม', hex: '#8fa89a', desc: 'พยาบาล ห้องน้ำ จุดพัก และร้านอาหาร เครื่องดื่ม',
-        items: ['พยาบาลประจำ 2 คน', 'ทางลาด / รถเข็น', 'ที่นั่งพัก 60 ที่'], meta: ['ตลอดวัน']
+      water: {
+        name: 'จุดบริการน้ำดื่ม', hex: '#4d83ff',
+        desc: 'จุดบริการน้ำดื่มกระจายตามแนวเส้นทาง ไอคอนหยดน้ำบนผัง',
+        items: ['รวม 8 จุดบนผัง'], meta: ['8 จุด']
       },
-      video: {
-        name: 'ห้องฉายวีดีโอนำชม', hex: '#7fae5f', desc: 'วีดีโอ 8 นาที สรุปเส้นทาง 4 หัวข้อ ฉายทุกรอบ 45 นาที',
-        items: ['รอบ 10.00 / 11.30 / 14.00 / 16.00', 'ที่นั่ง 60 ที่'], meta: ['8 นาที', 'ฟรี']
-      },
-      library: {
-        name: 'คลังความรู้ & ดาวน์โหลด', hex: '#2f8f74', desc: 'เอกสารวิชาการ คู่มือ และไฟล์สื่อประชาสัมพันธ์ที่ดาวน์โหลดได้',
-        items: ['คู่มืออาหารป่า (PDF)', 'รายงานผลคาร์บอน', 'ไฟล์ภาพนิทรรศการ'], meta: ['ฟรี']
-      },
-      press: {
-        name: 'มุมสื่อมวลชน', hex: '#c2703f', desc: 'โฟโต้วอลล์ จุดสัมภาษณ์และส่งไฟล์ภาพข่าวรายวัน',
-        items: ['Wi-Fi สำหรับสื่อ', 'ชุดข่าว (press kit)', 'จุดสัมภาษณ์ 3 มุม'], meta: ['ลงทะเบียนล่วงหน้า']
+      sound: {
+        name: 'เครื่องเสียง', hex: '#c8c8c8',
+        desc: 'ตำแหน่งเครื่องเสียงตามแนวเส้นทาง ไอคอนลำโพงบนผัง',
+        items: ['รวม 10 จุดบนผัง'], meta: ['10 จุด']
       }
     };
     function renderZone() {
-      const z = ZONES[STATE.zone] || ZONES.t1;
+      const z = ZONES[STATE.zone] || ZONES.F;
       $('#zoneInfo').innerHTML = `
     <span class="pinfo__k" style="color:${z.hex}">กำลังดูผัง</span>
     <h3>${esc(z.name)}</h3>
@@ -5821,7 +5925,6 @@
         { t: 'ภาพหัวข้อ 2 · ต้นกล้าสู่ป่าใหญ่', k: 'JPG', sz: '412 KB', u: 'topic-2-forest-poster.jpg', d: 'โปสเตอร์หัวข้อ 2' },
         { t: 'ภาพหัวข้อ 3 · กินอยู่กับป่า', k: 'JPG', sz: '368 KB', u: 'topic-3-wisdom-poster.jpg', d: 'โปสเตอร์หัวข้อ 3' },
         { t: 'ภาพหัวข้อ 4 · รักษ์ป่า สร้างรายได้', k: 'JPG', sz: '419 KB', u: 'topic-4-value-poster.jpg', d: 'โปสเตอร์หัวข้อ 4' },
-        { t: 'ภาพเวทีเสวนา “ป่าที่ให้ชีวิต”', k: 'JPG', sz: '117 KB', u: 'act-stage.jpg', d: '1600×1066 px · ใช้ประกอบข่าวกิจกรรม' },
         { t: 'มาร์กโลโก้ประจำนิทรรศการ', k: 'SVG', sz: '1 KB', u: 'logo.svg', d: 'เวกเตอร์ 240×240 · ใช้ได้ทั้งบนเว็บและงานพิมพ์' }
       ];
       const uploads = (DATA.videos || []).filter(v => v.published !== false &&
@@ -6372,16 +6475,20 @@
             points: g('points').split('\n').map(x => x.trim()).filter(Boolean),
             stats: g('stats').split(';').map(x => { const [v, l] = x.split('|'); return { v: (v || '').trim(), l: (l || '').trim() }; })
               .filter(x => x.v),
-            img: g('img') || t.img
+            overviewImg: g('overviewImg') || t.overviewImg || t.img || '',
+            detailImg: g('detailImg') || t.detailImg || t.img || ''
           });
-          const fe = $('#tp_' + t.id + '_file');
-          if (fe && fe.files[0]) {
-            const up = await uploadOne(fe.files[0]);
-            if (!up) return;
-            nt.img = up;
-            $('#tp_' + t.id + '_img').value = up;
-            fe.value = '';
+          for (const [fileId, key] of [['overviewFile', 'overviewImg'], ['detailFile', 'detailImg']]) {
+            const fe = $('#tp_' + t.id + '_' + fileId);
+            if (fe && fe.files[0]) {
+              const up = await uploadOne(fe.files[0]);
+              if (!up) return;
+              nt[key] = up;
+              $('#tp_' + t.id + '_' + key).value = up;
+              fe.value = '';
+            }
           }
+          nt.img = nt.detailImg || nt.overviewImg || t.img;
           next.push(nt);
         }
         if (!next.length) return toast('ไม่พบข้อมูลหัวข้อให้บันทึก', true);
