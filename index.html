@@ -4941,11 +4941,11 @@
         map: 'https://maps.app.goo.gl/8SFkwniNxGLcieaa9'
       },
       stats: [
-        { v: 4, label: 'หัวเรื่องจัดแสดง' },
-        { v: 128, label: 'ผลงาน & ผลิตภัณฑ์' },
-        { v: 36, label: 'วิสาหกิจชุมชนร่วมแสดง' },
-        { v: 42, label: 'ชนิดเมล็ดพันธุ์ไม้' },
-        { v: 9, label: 'รางวัลระดับประเทศ' }
+        { v: 5, label: 'หัวเรื่องจัดแสดง' },
+        { v: 10, label: 'ผลงาน & ผลิตภัณฑ์' },
+        { v: 10, label: 'ผลงานวิชาการ' },
+        { v: 14, label: 'ชนิดเมล็ดพันธุ์ไม้' },
+        { v: 4, label: 'รางวัลระดับประเทศ' }
       ],
       chain: [
         { i: 'ต้นทาง', t: 'เมล็ดพันธุ์', s: 'รวบรวมจากป่าแม่ข่าย 18 แห่ง ตรวจคุณภาพก่อนเพาะ', c: 't1' },
@@ -5462,7 +5462,7 @@
       box.innerHTML = (DATA.stats || DEMO.stats).map(s => `
     <div class="hstat"><b data-count="${s.v}" data-suffix="${esc(s.suffix || '')}">0</b><span>${esc(s.label)}</span></div>`).join('');
       const words = (DATA.topics || []).map(t => `${t.no} · ${t.title}`);
-      const line = words.concat(['ผลงาน 128 รายการ', 'วีดีโอนำชม 7 เรื่อง', 'วิสาหกิจชุมชน 36 ร้าน', 'เข้าชมนิทรรศการ ฟรี']);
+      const line = words.concat(['ผลงานวิชาการ', 'คาร์บอนเครดิต', 'วิสาหกิจชุมชน', 'เข้าชมนิทรรศการ ฟรี']);
       $('#ribbonTrack').innerHTML = [1, 2].map(() => line.map(w => `<span>${esc(w)}</span>`).join('')).join('');
     }
 
