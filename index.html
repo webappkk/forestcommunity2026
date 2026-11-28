@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>นิทรรศการ จากผืนป่า สู่ชุมชน สร้างมูลค่าที่ยั่งยืน | เทศกลางานไหมนานชาติ 2026</title>
+  <title>นิทรรศการ จากผืนป่า สู่ชุมชน สร้างมูลค่าที่ยั่งยืน | เทศกาลงานไหมนานาชาติ 2026</title>
   <meta name="description"
     content="เว็บไซต์นิทรรศการ “จากผืนป่า สู่ชุมชน สร้างมูลค่าที่ยั่งยืน” แสดงผลงาน วีดีโอ สื่อประชาสัมพันธ์ ปฏิทินการจัดแสดง แผนผังงาน กิจกรรม และรางวัล ของ 4 หัวเรื่องหลัก">
   <meta property="og:title" content="จากผืนป่า สู่ชุมชน สร้างมูลค่าที่ยั่งยืน">
@@ -5435,7 +5435,7 @@
        ============================================================ */
     function renderSettings() {
       const s = DATA.settings;
-      document.title = (s.title || DEMO.settings.title) + ' | นิทรรศการป่าไม้เพื่อชุมชน';
+      document.title = (s.title || DEMO.settings.title) + ' | เทศกาลงานไหมนานชาติ 2026';
       const h1 = $('#heroTitle');
       if (h1 && s.title && s.title !== DEMO.settings.title) {
         const enText = s.en || DEMO.settings.en;
@@ -5451,7 +5451,7 @@
       $('#heroImg').src = asset(s.hero || 'hero-forest.jpg');
       $('#heroDesc').textContent = s.lead;
       const mail = $('.foot a[href^="mailto"]'); if (mail && s.mail) { mail.textContent = s.mail; mail.href = 'mailto:' + s.mail; }
-      const tels = $$('.foot ul li'); if (tels[1] && s.tel) tels[1].textContent = 'โทร. ' + s.tel + ' (จันทร์–ศุกร์)';
+      const tels = $$('.foot ul li'); if (tels[1] && s.tel) tels[1].textContent = 'โทร. ' + s.tel + ' ';
       if (tels[0] && s.venue) tels[0].textContent = s.venue;
       $('#lastUpdate').textContent = thDate(iso(new Date()));
       $('#year').textContent = be(new Date().getFullYear());
